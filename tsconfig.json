@@ -1,6 +1,39 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "target": "esnext",
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "crypto": [
+        "./node_modules/react-native-crypto"
+      ],
+      "stream": [
+        "./node_modules/stream-browserify"
+      ],
+      "buffer": [
+        "./node_modules/buffer"
+      ],
+      "assert": [
+        "./node_modules/assert"
+      ],
+      "http": [
+        "./node_modules/stream-http"
+      ],
+      "https": [
+        "./node_modules/https-browserify"
+      ],
+      "os": [
+        "./node_modules/react-native-os"
+      ],
+      "url": [
+        "./node_modules/url"
+      ]
+    }
   }
 }
