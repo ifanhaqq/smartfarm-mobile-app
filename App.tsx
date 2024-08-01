@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HumChartScreen from 'src/screens/HumChartScreen';
 import HomeScreen from 'src/screens/HomeScreen';
+import MainChartScreen from 'src/screens/MainChartScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,6 +14,7 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen name="Humidity" component={HumChartScreen} />
         <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Charts" component={MainChartScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   )

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import mqtt from 'mqtt';
 import Chart from 'src/components/Chart';
 import { MQTTService } from 'src/services/MQTTService';
 import '../../shim';
@@ -28,7 +27,6 @@ const HumChartScreen: React.FC = () => {
       if (isConnected === false) return;
 
       // Convert message from Buffer to string and parse it as a number
-      // const receivedData = parseFloat(message.toString());
       const stringData = message.toString();
       const jsonData = JSON.parse(stringData);
       const receivedData = parseFloat(jsonData.hum);
@@ -38,7 +36,6 @@ const HumChartScreen: React.FC = () => {
 
         // Timestring
         const date = new Date();
-
 
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
