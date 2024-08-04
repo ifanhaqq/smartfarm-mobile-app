@@ -12,9 +12,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Humidity" component={HumChartScreen} />
+        <Tab.Screen name="Humidity" component={HumChartScreen} options={{}} />
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Charts" component={MainChartScreen} />
+        <Tab.Screen name="Charts" component={MainChartScreen} options={{
+          'headerStyle': {
+            backgroundColor: "#eff7fc",
+            height: 50
+          },
+        }} />
       </Tab.Navigator>
     </NavigationContainer>
   )

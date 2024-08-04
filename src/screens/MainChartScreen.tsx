@@ -1,67 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Chart from 'src/components/Chart';
-import { MQTTService } from 'src/services/MQTTService';
+import { LinearGradient } from 'expo-linear-gradient';
 import '../../shim';
-import { Icon } from 'react-native-elements';
+import SmallWidgetIcon from 'src/components/SmallWidgetIcon';
+import CloudHeader from 'src/components/CloudHeader';
 
 
 const MainChartScreen: React.FC = () => {
+
+    const [data, setData] = useState<{ x: Date, y: number }[]>([]);
+
     return (
         <>
-            <View style={styles.container}>
-                <View style={styles.childContainerLeft}>
-                    <View style={styles.iconText}>
-                        <Icon name='cloud'
-                            color='#ffffff'
-                            size={50}
-                            style={styles.icon}></Icon>
-                        <Text style={styles.iconTitle}>Rain</Text>
+            <LinearGradient colors={['#bfd7eb', '#ffffff']} style={styles.background}>
+                <CloudHeader />
+                <View style={styles.container}>
+
+                    <View style={styles.childContainerLeft}>
+                        <SmallWidgetIcon name="cloud" color="#bfd7eb" title="0" />
+                        <SmallWidgetIcon name="thermostat" color="#bfd7eb" title="2" />
+                        <SmallWidgetIcon name="visibility" color="#bfd7eb" title="0" />
                     </View>
-                    <View style={styles.iconText}>
-                        <Icon name='cloud'
-                            color='#ffffff'
-                            size={50}
-                            style={styles.icon}></Icon>
-                        <Text style={styles.iconTitle}>Rain</Text>
+                    <View style={styles.middleWidget}>
+                        <Text style={styles.middleWidgetChild}>12°</Text>
                     </View>
-                    <View style={styles.iconText}>
-                        <Icon name='cloud'
-                            color='#ffffff'
-                            size={50}
-                            style={styles.icon}></Icon>
-                        <Text style={styles.iconTitle}>Rain</Text>
-                    </View>
-                </View>
-                <View style={styles.middleWidget}>
-                    <Text style={styles.middleWidgetChild}>12</Text>
-                </View>
-                <View style={styles.childContainerRight}>
-                    <View style={styles.iconText}>
-                        <Icon name='cloud'
-                            color='#ffffff'
-                            size={50}
-                            style={styles.icon}></Icon>
-                        <Text style={styles.iconTitle}>Rain</Text>
-                    </View>
-                    <View style={styles.iconText}>
-                        <Icon name='cloud'
-                            color='#ffffff'
-                            size={50}
-                            style={styles.icon}></Icon>
-                        <Text style={styles.iconTitle}>Rain</Text>
-                    </View>
-                    <View style={styles.iconText}>
-                        <Icon name='cloud'
-                            color='#ffffff'
-                            size={50}
-                            style={styles.icon}></Icon>
-                        <Text style={styles.iconTitle}>Rain</Text>
+                    <View style={styles.childContainerRight}>
+                        <SmallWidgetIcon name="arrow-downward" color="#bfd7eb" title="0" />
+                        <SmallWidgetIcon name="wind-power" color="#bfd7eb" title="0" />
+                        <SmallWidgetIcon name="surround-sound" color="#bfd7eb" title="0" />
                     </View>
 
                 </View>
-            </View>
 
+                <View style={styles.bottomContainer}>
+                    <Text style={styles.titleBottomContainer}>Lorem ipsum</Text>
+                    <View>
+                        <Chart data={data} />
+                    </View>
+
+                </View>
+            </LinearGradient>
         </>
     )
 }
@@ -71,51 +50,65 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: '#545454',
         flexDirection: 'row',
         color: '#ffffff',
-        paddingTop: 50
+        paddingTop: 25
     },
+    bottomContainer: {
+        backgroundColor: '#ffffff',
+        flex: 2.5,
+        marginHorizontal: 15,
+        borderTopEndRadius: 70,
+        borderTopStartRadius: 70,
+        paddingTop: 20,
+        paddingLeft: 0
+    },
+    titleBottomContainer: {
+        color: '#357fd3',
+        textAlign: 'center',
+        fontSize: 27,
+        fontWeight: 'bold'
+    },
+    
     childContainerLeft: {
         flex: 1,
         paddingTop: 10,
         alignItems: 'flex-end',
-        
+
     },
+
     childContainerRight: {
         flex: 1,
         paddingTop: 10,
         alignItems: 'flex-start',
-        
+
     },
+
     middleWidget: {
-        borderWidth: 7,
-        borderRadius: 100,
         marginHorizontal: 10,
-        borderColor: '#ffffff',
     },
+
+    // Big number on middle
     middleWidgetChild: {
         padding: 13,
-        fontSize: 130,
-        color: '#ffffff',
+        fontSize: 100,
+        color: '#357fd3',
         fontWeight: 'bold',
+        textShadowColor: 'rgba(0, 0, 0, 0.1)',
+        textShadowOffset: { width: 0, height: 7 },
+        textShadowRadius: 1,
+        marginTop: 40
+
     },
-    header: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        borderColor: '#34eb71',
-        color: '#ffffff',
-        marginVertical: 7
-    },
-    iconText: {
-        marginBottom: 5
-    },
-    iconTitle: {
-        textAlign: 'center',
-    },
-    icon: {}
+    
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 1000,
+    }
 
 });
-
 
 export default MainChartScreen;
