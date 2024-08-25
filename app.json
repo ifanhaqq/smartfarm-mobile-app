@@ -18,10 +18,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ifanhaq.smartfarm_mobile_app",
+      "permissions": [
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4774c083-5df4-4456-938f-4cb35b5c9a4b"
+      }
     }
   }
 }

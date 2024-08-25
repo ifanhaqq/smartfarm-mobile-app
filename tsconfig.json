@@ -29,7 +29,7 @@
         "./node_modules/https-browserify"
       ],
       "os": [
-        "./node_modules/react-native-os"
+        "./node_modules/react-native-device-info"
       ],
       "url": [
         "./node_modules/url"

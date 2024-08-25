@@ -9,7 +9,7 @@ defaultConfig.resolver.extraNodeModules = {
   assert: require.resolve("assert"),
   http: require.resolve("stream-http"),
   https: require.resolve("https-browserify"),
-  os: require.resolve("react-native-os"),
+  os: require.resolve("react-native-device-info"),
   url: require.resolve("url"),
 };
 

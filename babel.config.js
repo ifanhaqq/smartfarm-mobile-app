@@ -13,7 +13,7 @@ module.exports = function(api) {
             assert: "assert",
             http: "stream-http",
             https: "https-browserify",
-            os: "react-native-os",
+            os: "react-native-device-info",
             url: "url",
           },
         },

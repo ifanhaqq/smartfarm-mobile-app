@@ -6,6 +6,7 @@ import HumChartScreen from 'src/screens/HumChartScreen';
 import HomeScreen from 'src/screens/HomeScreen';
 import MainChartScreen from 'src/screens/MainChartScreen';
 import { Icon } from 'react-native-elements';
+import IsConnectedScreen from 'src/screens/IsConnectedScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
               size={30}></Icon>
           }
         }} />
+        <Tab.Screen name='Check' component={IsConnectedScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   )
