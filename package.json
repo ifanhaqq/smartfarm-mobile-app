@@ -1,5 +1,5 @@
 {
-  "name": "mqtt-demo",
+  "name": "smartfarm-mobile-app",
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
