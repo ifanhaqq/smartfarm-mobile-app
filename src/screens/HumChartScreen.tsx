@@ -10,6 +10,8 @@ const HumChartScreen: React.FC = () => {
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [data, setData] = useState<{ x: Date, y: number }[]>([]);
+  const [tempData, setTempData] = useState<number>(0);
+
   const mqttService = new MQTTService();
 
 
@@ -20,7 +22,7 @@ const HumChartScreen: React.FC = () => {
 
     const onConnect = () => {
       setIsConnected(true);
-      mqttService.subscribe('test/json');
+      mqttService.subscribe('test-polindra/json');
     }
     
     const onMessage = (topic: string, message: Buffer) => {
@@ -30,6 +32,7 @@ const HumChartScreen: React.FC = () => {
       const stringData = message.toString();
       const jsonData = JSON.parse(stringData);
       const receivedData = parseFloat(jsonData.hum);
+      const temperatureData = parseFloat(jsonData.temperature);
       
       console.log("Message:", jsonData.hum);
       if (!isNaN(receivedData) && isFinite(receivedData)) {
@@ -50,6 +53,8 @@ const HumChartScreen: React.FC = () => {
             // Keep only the latest 100 data points to prevent excessive rendering
             return newData.length > MAX_DATA_POINTS ? newData.slice(newData.length - MAX_DATA_POINTS) : newData;
           });
+          setTempData(temperatureData);
+          console.log(tempData)
         } catch (error) {
           console.log("Client on stream", error)
         }
