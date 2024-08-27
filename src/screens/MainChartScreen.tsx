@@ -36,6 +36,8 @@ const MainChartScreen: React.FC = () => {
             const stringData = message.toString();
             const jsonData = JSON.parse(stringData);
 
+            console.log(jsonData);
+
             const changeParams: any = () => {
                 switch (paramsData.params) {
                     case "temperature":
@@ -102,17 +104,35 @@ const MainChartScreen: React.FC = () => {
                 <View style={styles.container}>
 
                     <View style={styles.childContainerLeft}>
-                        <Pressable onPress={() => {setChartData([]); setParamsData({title: "Cloud Chart", params: "cloud"}); setIsConnected(false)}}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                        <Pressable onPress={() => {setChartData([]); setParamsData({title: "Thermostat Chart", params: "thermostat"}); setIsConnected(false)}}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
-                        <Pressable onPress={() => {setChartData([]); setParamsData({title: "Visibility Chart", params: "eye"}); setIsConnected(false)}}><SmallWidgetIcon name="visibility" color="#bfd7eb" title={staticData.eye} /></Pressable>
+                        <View style={styles.childChildContainer}>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                        </View>
+                        <View style={styles.childChildContainer}>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                        </View>
+                        <View style={styles.childChildContainer}>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                        </View>
                     </View>
                     <View style={styles.middleWidget}>
                         <Text style={styles.middleWidgetChild}>{staticData.temp}°</Text>
                     </View>
                     <View style={styles.childContainerRight}>
-                        <Pressable onPress={() => {setChartData([]); setParamsData({title: "Pressure Chart", params: "pressure"}); setIsConnected(false)}}><SmallWidgetIcon name="arrow-downward" color="#bfd7eb" title={staticData.pressure} /></Pressable>
-                        <Pressable onPress={() => {setChartData([]); setParamsData({title: "Wind Chart", params: "wind"}); setIsConnected(false)}}><SmallWidgetIcon name="wind-power" color="#bfd7eb" title={staticData.wind} /></Pressable>
-                        <Pressable onPress={() => {setChartData([]); setParamsData({title: "Noise Chart", params: "noise"}); setIsConnected(false)}}><SmallWidgetIcon name="surround-sound" color="#bfd7eb" title={staticData.noise} /></Pressable>
+                    <View style={styles.childChildContainer}>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                        </View>
+                        <View style={styles.childChildContainer}>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                        </View>
+                        <View style={styles.childChildContainer}>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                        </View>
                     </View>
 
                 </View>
@@ -156,7 +176,7 @@ const styles = StyleSheet.create({
 
     childContainerLeft: {
         flex: 1,
-        paddingTop: 10,
+        paddingTop: 7,
         alignItems: 'flex-end',
 
     },
@@ -191,6 +211,13 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         height: 1000,
+    },
+
+    childChildContainer: {
+        flex: 0,
+        flexDirection: 'row',
+        // borderWidth: 1,
+        
     }
 
 });

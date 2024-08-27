@@ -20,8 +20,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: '#ffffff',
         borderRadius: 100,
-        padding: 5,
-        paddingHorizontal: 13
+        padding: 1,
+        paddingHorizontal: 10,
+        marginStart: 5
     },
     iconTitle: {
         textAlign: 'center',
