@@ -7,6 +7,7 @@ import HomeScreen from 'src/screens/HomeScreen';
 import MainChartScreen from 'src/screens/MainChartScreen';
 import { Icon } from 'react-native-elements';
 import IsConnectedScreen from 'src/screens/IsConnectedScreen';
+import RainHistoryScreen from 'src/screens/RainHistoryScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ export default function App() {
               size={30}></Icon>
           }
         }} />
-        <Tab.Screen name='Check' component={IsConnectedScreen} />
+        <Tab.Screen name='Rain History' component={RainHistoryScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   )
