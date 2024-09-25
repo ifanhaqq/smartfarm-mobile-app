@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HumChartScreen from 'src/screens/HumChartScreen';
-import HomeScreen from 'src/screens/HomeScreen';
+import LoginScreen from 'src/screens/LoginScreen';
 import MainChartScreen from 'src/screens/MainChartScreen';
 import { Icon } from 'react-native-elements';
 import IsConnectedScreen from 'src/screens/IsConnectedScreen';
@@ -27,6 +27,7 @@ export default function App() {
           }
         }} />
         <Tab.Screen name='Rain History' component={RainHistoryScreen} />
+        <Tab.Screen name='Login Screen' component={LoginScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   )
