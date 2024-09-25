@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mqtt-demo",
+    "name": "Smartfarm",
     "slug": "mqtt-demo",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,7 +12,7 @@
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#bfd7eb"
     },
     "ios": {
       "supportsTablet": true
@@ -20,7 +20,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#bfd7eb"
       },
       "package": "com.ifanhaq.smartfarm_mobile_app",
       "permissions": [

@@ -14,8 +14,33 @@ const MainChartScreen: React.FC = () => {
 
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [chartData, setChartData] = useState<{ x: Date, y: number }[]>([]);
-    const [staticData, setStaticData] = useState<{ temp: Float | null, cloud: Float | null, thermostat: Float | null, eye: Float | null, pressure: Float | null, wind: Float | null, noise: Float | null }>({ temp: 0, cloud: 0, thermostat: 0, eye: 0, pressure: 0, wind: 0, noise: 0 })
+    const [staticData, setStaticData] = useState<{ w1_temp: Float | null, 
+                                                   w1_hum: Float | null, 
+                                                   w1_noise: Float | null, 
+                                                   w1_pm25: Float | null, 
+                                                   w1_pm10: Float | null, 
+                                                   w1_press: Float | null, 
+                                                   w1_luxh: Float | null, 
+                                                   w1_luxl: Float | null, 
+                                                   w2_wd: Float | null,
+                                                   w2_ws_avg: Float | null, 
+                                                   w2_rain_d: Float | null,
+                                                   w2_rain_h: Float | null,
+                                                   w2_ws_max: Float | null}>({ w1_temp: 0, 
+                                                                            w1_hum: 0, 
+                                                                            w1_noise: 0, 
+                                                                            w1_pm25: 0, 
+                                                                            w1_pm10: 0,
+                                                                            w1_press: 0, 
+                                                                            w1_luxh: 0, 
+                                                                            w1_luxl: 0, 
+                                                                            w2_wd: 0,
+                                                                            w2_ws_avg: 0,
+                                                                            w2_rain_d: 0,
+                                                                            w2_rain_h: 0,
+                                                                            w2_ws_max: 0 })
     const [paramsData, setParamsData] = useState<{ title: string, params: string }>({ title: "Temperature", params: "temperature" });
+    const [domain, setDomain] = useState<{y_min: number, y_max: number}>({y_min: 10, y_max: 50});
 
     const mqttService = new MQTTService();
 
@@ -26,7 +51,7 @@ const MainChartScreen: React.FC = () => {
 
         const onConnect = () => {
             setIsConnected(true);
-            mqttService.subscribe('test-polindra/json');
+            mqttService.subscribe('my-topic/polindra');
         }
 
         const onMessage = (topic: string, message: Buffer) => {
@@ -36,26 +61,36 @@ const MainChartScreen: React.FC = () => {
             const stringData = message.toString();
             const jsonData = JSON.parse(stringData);
 
-            console.log(jsonData);
-
             const changeParams: any = () => {
                 switch (paramsData.params) {
-                    case "temperature":
-                        return jsonData.temperature;
-                    case "cloud":
-                        return jsonData.cloud;
-                    case "eye":
-                        return jsonData.eye;
-                    case "thermostat":
-                        return jsonData.thermostat;
-                    case "pressure":
-                        return jsonData.pressure;
-                    case "wind":
-                        return jsonData.wind;
-                    case "noise":
-                        return jsonData.noise;
+                    case "w1_hum":
+                        return jsonData.w1_hum;
+                    case "w1_noise":
+                        return jsonData.w1_noise;
+                    case "w1_pm25":
+                        return jsonData.w1_pm25;
+                    case "w1_pm10":
+                        return jsonData.w1_pm10;
+                    case "w1_press":
+                        return jsonData.w1_press;
+                    case "w1_luxh":
+                        return jsonData.w1_luxh;
+                    case "w1_luxl":
+                        return jsonData.w1_luxl;
+                    case "w2_wd":
+                        return jsonData.w2_wd;
+                    case "w2_ws_avg":
+                        return jsonData.w2_ws_avg;
+                    case "w2_rain_d":
+                        return jsonData.w2_rain_d;
+                    case "w2_rain_h":
+                        return jsonData.w2_rain_h;
+                    case "w2_ws_max":
+                        return jsonData.w2_ws_max;
+                        case "w1_temp":
+                        return jsonData.w1_temp;
                     default:
-                        return jsonData.temperature;
+                        return jsonData.w1_temp;
                 }
             }
 
@@ -72,18 +107,30 @@ const MainChartScreen: React.FC = () => {
 
                 const timeString = `${hours}:${minutes}:${seconds}`;
 
-                console.log(`Received message on topic ${topic}: ${receivedData} on ${timeString}`);
+                
                 try {
                     setChartData(prevData => {
                         const newData = [...prevData, { x: new Date(), y: receivedData }];
                         // Keep only the latest 100 data points to prevent excessive rendering
                         return newData.length > MAX_DATA_POINTS ? newData.slice(newData.length - MAX_DATA_POINTS) : newData;
                     });
-                    setStaticData({ temp: jsonData.temperature, cloud: jsonData.cloud, thermostat: jsonData.thermostat, eye: jsonData.eye, pressure: jsonData.pressure, wind: jsonData.wind, noise: jsonData.noise })
+                    setStaticData({ w1_temp: jsonData.w1_temp, 
+                                    w1_hum: jsonData.w1_hum, 
+                                    w1_noise: jsonData.w1_noise, 
+                                    w1_pm25: jsonData.w1_pm25, 
+                                    w1_pm10: jsonData.w1_pm10, 
+                                    w1_press: jsonData.w1_press, 
+                                    w1_luxh: jsonData.w1_luxh, 
+                                    w1_luxl: jsonData.w1_luxl, 
+                                    w2_wd: jsonData.w2_wd, 
+                                    w2_ws_avg: jsonData.w2_ws_avg, 
+                                    w2_rain_d: jsonData.w2_rain_d, 
+                                    w2_rain_h: jsonData.w2_rain_h,
+                                    w2_ws_max: jsonData.w2_ws_max
+                                    })
                 } catch (error) {
                     console.log("Client on stream", error)
                 }
-                console.log(staticData.temp);
             } else {
                 console.log(`Received invalid data on topic ${topic}: ${message.toString()}`);
             }
@@ -105,33 +152,158 @@ const MainChartScreen: React.FC = () => {
 
                     <View style={styles.childContainerLeft}>
                         <View style={styles.childChildContainer}>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Humidity Chart", 
+                                                                        params: "w1_hum" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 100})
+                                                        }}>
+                                                            <SmallWidgetIcon name="sunny" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_hum} 
+                                                                             title="HUM" />
+                            </Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Noise Chart", 
+                                                                        params: "w1_noise" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 30, y_max: 100})
+                                                        }}>
+                                                            <SmallWidgetIcon name="hearing" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_noise} 
+                                                                             title="Noise" />
+                                </Pressable>
                         </View>
                         <View style={styles.childChildContainer}>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "PM 2.5", 
+                                                                        params: "w1_pm25" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 10})
+                                                        }}>
+                                                            <SmallWidgetIcon name="cloud" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_pm25} 
+                                                                             title="PM2.5" />
+                            </Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "PM 1.0", 
+                                                                        params: "w1_pm10" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 10});
+                                                        }}>
+                                                            <SmallWidgetIcon name="thermostat" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_pm10} 
+                                                                             title="PM1.0" />
+                            </Pressable>
                         </View>
                         <View style={styles.childChildContainer}>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Pressure Chart", 
+                                                                        params: "w1_press" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 30, y_max: 110});
+                                                        }}>
+                                                            <SmallWidgetIcon name="cloud" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_press} 
+                                                                             title="Pressure" />
+                            </Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Luminosity H", 
+                                                                        params: "w1_luxh" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 100});
+                                                        }}>
+                                                            <SmallWidgetIcon name="thermostat" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_luxh} 
+                                                                             title="LUXH" />
+                            </Pressable>
                         </View>
                     </View>
                     <View style={styles.middleWidget}>
-                        <Text style={styles.middleWidgetChild}>{staticData.temp}°</Text>
+                    <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Temperature chart", 
+                                                                        params: "w1_temp" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 10, y_max: 50});
+                                                        }}>
+                                                            <Text style={styles.middleWidgetChild}>{staticData.w1_temp}°</Text>
+                    </Pressable>
                     </View>
                     <View style={styles.childContainerRight}>
                     <View style={styles.childChildContainer}>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Luminosity L", 
+                                                                        params: "w1_luxl" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 1000});
+                                                        }}>
+                                                            <SmallWidgetIcon name="cloud" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w1_luxl} 
+                                                                             title="LUXL" />
+                            </Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Wind Direction", 
+                                                                        params: "w2_wd" }); 
+                                                        setIsConnected(false) }}>
+                                                            <SmallWidgetIcon name="wind-power" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w2_wd} 
+                                                                             title="WD" />
+                            </Pressable>
                         </View>
                         <View style={styles.childChildContainer}>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Average Windspeed", 
+                                                                        params: "w2_ws_avg" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 10});
+                                                        }}>
+                                                            <SmallWidgetIcon name="wind-power" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w2_ws_avg} 
+                                                                             title="AVG WS" />
+                            </Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Rain per Day", 
+                                                                        params: "w2_rain_d" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 10});
+                                                        }}>
+                                                            <SmallWidgetIcon name="cloud" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w2_rain_d} 
+                                                                             title="Rain/D" />
+                            </Pressable>
                         </View>
                         <View style={styles.childChildContainer}>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Cloud Chart", params: "cloud" }); setIsConnected(false) }}><SmallWidgetIcon name="cloud" color="#bfd7eb" title={staticData.cloud} /></Pressable>
-                            <Pressable onPress={() => { setChartData([]); setParamsData({ title: "Thermostat Chart", params: "thermostat" }); setIsConnected(false) }}><SmallWidgetIcon name="thermostat" color="#bfd7eb" title={staticData.thermostat} /></Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Rain per Hour", 
+                                                                        params: "w2_rain_h" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 10});
+                                                        }}>
+                                                            <SmallWidgetIcon name="cloud" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w2_rain_h} 
+                                                                             title="Rain/H" />
+                            </Pressable>
+                            <Pressable onPress={() => { setChartData([]); 
+                                                        setParamsData({ title: "Maximum Windspeed", 
+                                                                        params: "w2_ws_max" }); 
+                                                        setIsConnected(false);
+                                                        setDomain({y_min: 0, y_max: 10});
+                                                        }}>
+                                                            <SmallWidgetIcon name="wind-power" 
+                                                                             color="#bfd7eb" 
+                                                                             value={staticData.w2_ws_max} 
+                                                                             title="MAX WS" />
+                            </Pressable>
                         </View>
                     </View>
 
@@ -140,7 +312,7 @@ const MainChartScreen: React.FC = () => {
                 <View style={styles.bottomContainer}>
                     <Text style={styles.titleBottomContainer}>{paramsData.title}</Text>
                     <View>
-                        <Chart data={chartData} />
+                        <Chart data={chartData} y_min={domain.y_min} y_max={domain.y_max}/>
                     </View>
 
                 </View>
@@ -195,7 +367,7 @@ const styles = StyleSheet.create({
     // Big number on middle
     middleWidgetChild: {
         padding: 13,
-        fontSize: 100,
+        fontSize: 40,
         color: '#357fd3',
         fontWeight: 'bold',
         textShadowColor: 'rgba(0, 0, 0, 0.1)',
