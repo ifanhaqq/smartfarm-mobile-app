@@ -8,6 +8,7 @@ import MainChartScreen from 'src/screens/MainChartScreen';
 import { Icon } from 'react-native-elements';
 import IsConnectedScreen from 'src/screens/IsConnectedScreen';
 import RainHistoryScreen from 'src/screens/RainHistoryScreen';
+import HistoryScreen from 'src/screens/HistoryScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +29,17 @@ export default function App() {
         }} />
         <Tab.Screen name='Rain History' component={RainHistoryScreen} />
         <Tab.Screen name='Login Screen' component={LoginScreen} />
+        <Tab.Screen name='History' component={HistoryScreen} options={{
+          'headerStyle': {
+            backgroundColor: "#eff7fc",
+            height: 50
+          },
+          'tabBarIcon': () => {
+            return <Icon name="show-chart"
+              color="grey"
+              size={30}></Icon>
+          }
+        }} />
       </Tab.Navigator>
     </NavigationContainer>
   )
