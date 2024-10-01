@@ -9,6 +9,7 @@ import { Icon } from 'react-native-elements';
 import IsConnectedScreen from 'src/screens/IsConnectedScreen';
 import RainHistoryScreen from 'src/screens/RainHistoryScreen';
 import HistoryScreen from 'src/screens/HistoryScreen';
+import MonthlyReportScreen from 'src/screens/MonthlyReportScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +41,7 @@ export default function App() {
               size={30}></Icon>
           }
         }} />
+        <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   )
