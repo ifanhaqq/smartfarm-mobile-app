@@ -3,9 +3,11 @@ import axios from "../utils/axios";
 
 export class RainSpecService {
 
+    private serviceUrl = "https://rainspecifier.perismayu.my.id/";
+
     async checkConnection() {
         try {
-            const response: AxiosResponse<string> = await axios.get("/");
+            const response: AxiosResponse<string> = await axios(this.serviceUrl).get("/");
             console.log("Connected successfully", response.data, response.status);
         } catch (error: unknown) {
             console.error(error);
@@ -14,7 +16,7 @@ export class RainSpecService {
 
     async getRainHistory(daysPrior: number) {
         try {
-            const response: AxiosResponse<number[]> = await axios.post<number[]>("/rain-history", {
+            const response: AxiosResponse<number[]> = await axios(this.serviceUrl).post<number[]>("/rain-history", {
                 day: daysPrior
             });
 
