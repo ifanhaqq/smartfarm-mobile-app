@@ -1,12 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Shadow } from 'react-native-shadow-2'
 import { Icon } from 'react-native-elements';
+import UserContext from 'src/contexts/AuthContext';
+import { AuthService } from 'src/services/AuthService';
 
 const LoginScreen: React.FC = () => {
 
+    const userContext = useContext(UserContext);
+    const { setUser } = userContext;
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [errors, setErrors] = useState({});
+    const authService: AuthService = new AuthService();
+
+    async function handleLogin() {
+        setErrors({});
+
+        try {
+            const token = await authService.login({
+                email,
+                password,
+                device_name: `${Platform.OS} ${Platform.Version}`
+            })
+
+            const user = await authService.loadUser(token);
+            console.log(user)
+
+            setUser(user);
+            
+        } catch (error: any) {
+            if (error.response?.status === 422) {
+                setErrors(error.response.data.errors)
+            }
+
+            console.log(error)
+        }
+    }
+
     const circles = [
         { size: 150, top: -20, left: 240, backgroundColor: 'rgba(154, 185, 225, 0.2)' },
         { size: 90, top: 0, left: 20, backgroundColor: 'rgba(154, 185, 225, 0.2)' },
@@ -48,10 +81,13 @@ const LoginScreen: React.FC = () => {
             >
                 <View style={styles.loginContainer}>
                     <Text style={styles.mainText}>Hello, Farmers!</Text>
-                    <Text style={styles.label}>Username</Text>
+                    <Text style={styles.label}>Email</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder='Username'
+                        placeholder='Email'
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                        
                     >
                     </TextInput>
                     <Text style={styles.passwordLabel}>Password</Text>
@@ -60,11 +96,13 @@ const LoginScreen: React.FC = () => {
                             style={styles.passwordInput}
                             placeholder='Password'
                             secureTextEntry={!showPassword}
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
                         >
                         </TextInput>
                         <Text style={styles.showIcon}>Show</Text>
                     </View>
-                    <TouchableOpacity style={styles.loginButton}>
+                    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
                         <Text style={{textAlign: 'center', paddingVertical: 15, color: '#fff', fontFamily: 'Montserrat-Bold', fontSize: 22}}>Login</Text>
                     </TouchableOpacity>
 

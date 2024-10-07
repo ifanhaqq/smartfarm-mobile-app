@@ -1,48 +1,102 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HumChartScreen from 'src/screens/HumChartScreen';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from 'src/screens/LoginScreen';
 import MainChartScreen from 'src/screens/MainChartScreen';
 import { Icon } from 'react-native-elements';
-import IsConnectedScreen from 'src/screens/IsConnectedScreen';
 import RainHistoryScreen from 'src/screens/RainHistoryScreen';
 import HistoryScreen from 'src/screens/HistoryScreen';
 import MonthlyReportScreen from 'src/screens/MonthlyReportScreen';
+import SplashScreen from 'src/screens/SplashScreen';
+import { AuthService } from 'src/services/AuthService';
+import UserContext from 'src/contexts/AuthContext';
+import { TokenService } from 'src/services/TokenService';
 
+
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const tokenService: TokenService = new TokenService();
+
+function LoggedTab() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Charts" component={MainChartScreen} options={{
-          'headerStyle': {
-            backgroundColor: "#eff7fc",
-            height: 50
-          },
-          'tabBarIcon': () => {
-            return <Icon name="show-chart"
-              color="grey"
-              size={30}></Icon>
-          }
-        }} />
-        <Tab.Screen name='Rain History' component={RainHistoryScreen} />
-        <Tab.Screen name='Login Screen' component={LoginScreen} />
-        <Tab.Screen name='History' component={HistoryScreen} options={{
-          'headerStyle': {
-            backgroundColor: "#eff7fc",
-            height: 50
-          },
-          'tabBarIcon': () => {
-            return <Icon name="show-chart"
-              color="grey"
-              size={30}></Icon>
-          }
-        }} />
-        <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator>
+      <Tab.Screen name="Charts" component={MainChartScreen} options={{
+        'headerStyle': {
+          backgroundColor: "#eff7fc",
+          height: 50
+        },
+        'tabBarIcon': () => {
+          return <Icon name="show-chart"
+            color="grey"
+            size={30}></Icon>
+        }
+      }} />
+      <Tab.Screen name='Rain History' component={RainHistoryScreen} />
+      <Tab.Screen name='History' component={HistoryScreen} options={{
+        'headerStyle': {
+          backgroundColor: "#eff7fc",
+          height: 50
+        },
+        'tabBarIcon': () => {
+          return <Icon name="show-chart"
+            color="grey"
+            size={30}></Icon>
+        }
+      }} />
+      <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} />
+    </Tab.Navigator>
+  )
+}
+
+export default function App() {
+
+  const [user, setUser] = useState();
+  const authService: AuthService = new AuthService();
+  const [status, setStatus] = useState("loading");
+
+  useEffect(() => {
+
+    async function runEffect() {
+      try {
+        const token = await tokenService.getToken();
+        const user = await authService.loadUser(token);
+        setUser(user);
+      } catch (error) {
+        console.log(error)
+      }
+
+      setStatus("idle");
+    }
+
+    runEffect();
+  }, []);
+
+  if (status === "loading") {
+    return <SplashScreen />
+  }
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {user ? (
+            <>
+              <Stack.Screen name='Logged'
+                component={LoggedTab}
+                options={{ headerShown: false }}/>
+            </>
+          ) : (
+            <>
+              <Stack.Screen name='Login'
+                            component={LoginScreen} />
+            </>
+          )}
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    </UserContext.Provider>
   )
 }

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, StatusBar } from 'react-native';
 import { VictoryChart, VictoryBar, VictoryTheme, VictoryAxis } from 'victory-native';
 import { RainSpecService } from 'src/services/RainSpecService';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { TokenService } from 'src/services/TokenService';
 // import RainStatus from 'src/components/RainStatus';
 
 type rainListProps = { rainListDate: string, rainListStatus: string }
@@ -83,7 +84,9 @@ const RainHistoryScreen: React.FC = () => {
         };
 
     }, [daysPriorData]);
-
+    const token: TokenService = new TokenService();
+    
+    console.log(token.getToken())
 
     return (
         <>
