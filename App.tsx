@@ -13,6 +13,7 @@ import SplashScreen from 'src/screens/SplashScreen';
 import { AuthService } from 'src/services/AuthService';
 import UserContext from 'src/contexts/AuthContext';
 import { TokenService } from 'src/services/TokenService';
+import ProfileScreen from 'src/screens/ProfileScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +36,7 @@ function LoggedTab() {
         }
       }} />
       <Tab.Screen name='Rain History' component={RainHistoryScreen} />
+      <Tab.Screen name='Profile' component={ProfileScreen} />
       <Tab.Screen name='History' component={HistoryScreen} options={{
         'headerStyle': {
           backgroundColor: "#eff7fc",

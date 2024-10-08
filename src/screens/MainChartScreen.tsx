@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Chart from 'src/components/Chart';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,11 +7,13 @@ import SmallWidgetIcon from 'src/components/SmallWidgetIcon';
 import CloudHeader from 'src/components/CloudHeader';
 import { MQTTService } from 'src/services/MQTTService';
 import { Float } from 'react-native/Libraries/Types/CodegenTypes';
+import UserContext from 'src/contexts/AuthContext';
 
 const MAX_DATA_POINTS = 100;
 
 const MainChartScreen: React.FC = () => {
 
+    const {user, setUser} = useContext(UserContext);
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [chartData, setChartData] = useState<{ x: Date, y: number }[]>([]);
     const [staticData, setStaticData] = useState<{ w1_temp: Float | null, 

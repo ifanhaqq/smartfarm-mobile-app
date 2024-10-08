@@ -5,7 +5,7 @@ let token = null;
 export class TokenService {
     private token: string | null = null;
 
-    async setToken(newToken: string) {
+    async setToken(newToken: string | null) {
         this.token = newToken;
 
         if (this.token !== null) {
