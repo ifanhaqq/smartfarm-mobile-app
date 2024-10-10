@@ -159,8 +159,6 @@ const HistoryScreen: React.FC = () => {
                 >
 
                 </Calendar>
-                <Text style={{marginBottom: 5}}>Date: {historyData.date} Day: {historyData.day}</Text>
-                <Text style={{marginBottom: 5}}>{selectedDates}</Text>
             </View>
             <FlatList
                 data={rainStatusData}
