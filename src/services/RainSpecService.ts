@@ -4,7 +4,7 @@ import { TokenService } from "./TokenService";
 
 export class RainSpecService {
 
-    private serviceUrl = "http://192.168.252.58:8000/api/";
+    private serviceUrl = "http://172.31.60.22:3000/";
     private token: TokenService = new TokenService(); 
 
     async checkConnection() {
@@ -36,5 +36,24 @@ export class RainSpecService {
             throw error;
           }
         // return data;
+    }
+
+    async getRainHistoryCalendar(end_day: string, day: number) {
+        const token = await this.token.getToken();
+
+        try {
+            const response: AxiosResponse<number[]> = await axios(this.serviceUrl).post<number[]>("/rain-history-calendar", {
+                end_day,
+                day
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            throw error;
+          }
     }
 }

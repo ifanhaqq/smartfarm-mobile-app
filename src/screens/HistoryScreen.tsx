@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { Calendar  } from 'react-native-calendars';
 import CloudHeader from 'src/components/CloudHeader';
 import { RainSpecService } from 'src/services/RainSpecService';
 
@@ -18,9 +18,69 @@ const HistoryScreen: React.FC = () => {
 
     const [rainHistory, setRainHistory] = useState<number[]>([]);
     const [rainData, setRainData] = useState<{ x: number, y: number }[]>([]);
-    const [daysPriorData, setDaysPriorData] = useState<number>(7);
-    const [rainStatusData, setRainStatusData] = useState<{ id: number, rainListDate: string, rainListStatus: string }[] | null>(null);
 
+    const [daysPriorData, setDaysPriorData] = useState<number>(7);
+    const [historyData, setHistoryData] = useState<{date: string, day: number}>({date: new Date().toISOString().split('T')[0], day: 7})
+    const [rainStatusData, setRainStatusData] = useState<{ id: number, rainListDate: string, rainListStatus: string }[] | null>(null);
+    const [selectedDates, setSelectedDates] = useState<any>([]);
+
+    
+
+    const onDayPress = (day: any) => {
+        let newSelectedDates = [];
+        const start = selectedDates[0];
+        
+        if (selectedDates.length === 1) {
+          // If one date is already selected, mark the range
+          const end = day.dateString;
+          
+          // Determine range and add dates
+          if (end < start) {
+            // If end date is earlier, swap start and end
+            for (
+              let date = new Date(end);
+              date <= new Date(start);
+              date.setDate(date.getDate() + 1)
+            ) {
+              newSelectedDates.push(date.toISOString().split('T')[0]);
+            }
+          } else {
+            for (
+              let date = new Date(start);
+              date <= new Date(end);
+              date.setDate(date.getDate() + 1)
+            ) {
+              newSelectedDates.push(date.toISOString().split('T')[0]);
+            }
+          }
+        } else {
+          // Start a new range selection
+          newSelectedDates = [day.dateString];
+        }
+    
+        setSelectedDates(newSelectedDates);
+
+        
+      };
+
+      
+
+    useEffect(() => {
+        if (selectedDates.length > 1) {
+            setHistoryData({date: selectedDates.pop(), day: selectedDates.length})
+        }
+    }, [selectedDates]);
+
+    const markedDates = selectedDates.reduce((acc: any, date: any, index: any) => {
+        
+        acc[date] = {
+          color: '#50cebb',
+          textColor: 'white',
+          startingDay: index === 0,
+          endingDay: index === selectedDates.length - 1
+        };
+        return acc;
+      }, {});
 
     useEffect(() => {
 
@@ -29,11 +89,10 @@ const HistoryScreen: React.FC = () => {
                 const rainSpec: RainSpecService = new RainSpecService();
 
                 // Fetch rain history data
-                const fetchedRainHistory = await rainSpec.getRainHistory(daysPriorData);
-                const stringDate = []
-
+                const fetchedRainHistory = await rainSpec.getRainHistoryCalendar(historyData.date, historyData.day);
+                console.log(fetchedRainHistory)
                 const stringDateHandler = (date: number) => {
-                    const today = new Date();
+                    const today = new Date(historyData.date);
                     today.setDate(today.getDate() + 1);
                     const dayBefore = new Date(today);
                     dayBefore.setDate(today.getDate() - date);
@@ -49,8 +108,10 @@ const HistoryScreen: React.FC = () => {
 
                 }
 
+
                 // Update rain history state
                 setRainHistory(fetchedRainHistory);
+
 
                 // Update rain data state based on fetched rain history
                 const updatedRainData = fetchedRainHistory.map((value, index) => ({
@@ -64,6 +125,7 @@ const HistoryScreen: React.FC = () => {
                 }));
 
                 setRainData(updatedRainData);
+
                 setRainStatusData(updatedRainStatusData);
 
                 console.log(rainStatusData);
@@ -79,10 +141,10 @@ const HistoryScreen: React.FC = () => {
 
         // Clean-up function (if needed)
         return () => {
-            setRainData([]);
+            
         };
 
-    }, [daysPriorData]);
+    }, [historyData]);
 
     return (
         <LinearGradient colors={['#bfd7eb', '#ffffff']} style={styles.background}>
@@ -97,12 +159,13 @@ const HistoryScreen: React.FC = () => {
                         textSectionTitleDisabledColor: '#255599',
                         textDayHeaderFontWeight: 'bold'
                     }}
-                    onDayPress={(day: any) => {
-                        console.log('selected day', day.dateString);
-                    }}
+                    markingType={'period'}
+                    markedDates={markedDates}
+                    onDayPress={onDayPress}
                 >
 
                 </Calendar>
+                <Text>Date: {historyData.date} Day: {historyData.day}</Text>
             </View>
             <FlatList
                 data={rainStatusData}
