@@ -4,7 +4,7 @@ import { TokenService } from "./TokenService";
 
 export class RainSpecService {
 
-    private serviceUrl = "http://172.31.60.22:3000/";
+    private serviceUrl = "http://192.168.20.99:3000/";
     private token: TokenService = new TokenService(); 
 
     async checkConnection() {

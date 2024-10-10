@@ -3,7 +3,7 @@ import axios from "src/utils/axios";
 
 export class AuthService {
 
-    private serviceUrl = "http://172.31.60.22:8000/api"
+    private serviceUrl = "http://192.168.20.99:8000/api"
     private tokenService: TokenService = new TokenService();
 
     async login(credentials: any) {

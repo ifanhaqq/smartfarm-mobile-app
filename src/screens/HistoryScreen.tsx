@@ -18,8 +18,6 @@ const HistoryScreen: React.FC = () => {
 
     const [rainHistory, setRainHistory] = useState<number[]>([]);
     const [rainData, setRainData] = useState<{ x: number, y: number }[]>([]);
-
-    const [daysPriorData, setDaysPriorData] = useState<number>(7);
     const [historyData, setHistoryData] = useState<{date: string, day: number}>({date: new Date().toISOString().split('T')[0], day: 7})
     const [rainStatusData, setRainStatusData] = useState<{ id: number, rainListDate: string, rainListStatus: string }[] | null>(null);
     const [selectedDates, setSelectedDates] = useState<any>([]);
@@ -37,11 +35,7 @@ const HistoryScreen: React.FC = () => {
           // Determine range and add dates
           if (end < start) {
             // If end date is earlier, swap start and end
-            for (
-              let date = new Date(end);
-              date <= new Date(start);
-              date.setDate(date.getDate() + 1)
-            ) {
+            for (let date = new Date(end); date <= new Date(start); date.setDate(date.getDate() + 1)) {
               newSelectedDates.push(date.toISOString().split('T')[0]);
             }
           } else {
@@ -67,7 +61,7 @@ const HistoryScreen: React.FC = () => {
 
     useEffect(() => {
         if (selectedDates.length > 1) {
-            setHistoryData({date: selectedDates.pop(), day: selectedDates.length})
+            setHistoryData({date: selectedDates[selectedDates.length - 1], day: selectedDates.length})
         }
     }, [selectedDates]);
 
@@ -165,7 +159,8 @@ const HistoryScreen: React.FC = () => {
                 >
 
                 </Calendar>
-                <Text>Date: {historyData.date} Day: {historyData.day}</Text>
+                <Text style={{marginBottom: 5}}>Date: {historyData.date} Day: {historyData.day}</Text>
+                <Text style={{marginBottom: 5}}>{selectedDates}</Text>
             </View>
             <FlatList
                 data={rainStatusData}
