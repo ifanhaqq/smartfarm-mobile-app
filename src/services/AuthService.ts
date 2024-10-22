@@ -3,11 +3,10 @@ import axios from "src/utils/axios";
 
 export class AuthService {
 
-    private serviceUrl = "http://192.168.20.99:8000/api"
     private tokenService: TokenService = new TokenService();
 
     async login(credentials: any) {
-        const { data } = await axios(this.serviceUrl).post("/mobile-login", credentials);
+        const { data } = await axios.post("/mobile-login", credentials);
         
         await this.tokenService.setToken(data.token);
         const token = await this.tokenService.getToken();
@@ -20,7 +19,7 @@ export class AuthService {
     }
 
     async loadUser(token: string | null) {
-        const { data: user} = await axios(this.serviceUrl).get("/user", {
+        const { data: user} = await axios.get("/user", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -31,7 +30,7 @@ export class AuthService {
 
     async logout() {
         const token = await this.tokenService.getToken();
-        await axios(this.serviceUrl).post('/mobile-logout', {}, {
+        await axios.post('/mobile-logout', {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

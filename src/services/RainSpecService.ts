@@ -4,12 +4,11 @@ import { TokenService } from "./TokenService";
 
 export class RainSpecService {
 
-    private serviceUrl = "http://192.168.20.99:3000/";
     private token: TokenService = new TokenService(); 
 
     async checkConnection() {
         try {
-            const response: AxiosResponse<string> = await axios(this.serviceUrl).get("/");
+            const response: AxiosResponse<string> = await axios.get("/");
             console.log("Connected successfully", response.data, response.status);
         } catch (error: unknown) {
             console.error(error);
@@ -22,7 +21,7 @@ export class RainSpecService {
         console.log(token)
 
         try {
-            const response: AxiosResponse<number[]> = await axios(this.serviceUrl).post<number[]>("/rain-history", {
+            const response: AxiosResponse<number[]> = await axios.post<number[]>("/rain-history", {
                 day: daysPrior,
                 
             }, {
@@ -42,7 +41,7 @@ export class RainSpecService {
         const token = await this.token.getToken();
 
         try {
-            const response: AxiosResponse<number[]> = await axios(this.serviceUrl).post<number[]>("/rain-history-calendar", {
+            const response: AxiosResponse<number[]> = await axios.post<number[]>("/rain-history", {
                 end_day,
                 day
             }, {
