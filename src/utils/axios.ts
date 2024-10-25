@@ -4,7 +4,7 @@ import { TokenService } from 'src/services/TokenService';
 const tokenService: TokenService = new TokenService();
 
 const axios: AxiosInstance = axiosLib.create({
-    baseURL: "https://planting-prediction.petanitech.com/api/mobile-login",
+    baseURL: "https://planting-prediction.petanitech.com/api",
     headers: {
         Accept: 'application/json'
     }
