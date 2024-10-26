@@ -32,7 +32,7 @@ const MonthlyReportScreen: React.FC = () => {
 
             try {
                 const report = await reportService.getReport(monthsPriorData);
-                const newReportData = {column1: report.kat.toFixed(2), column2: report.ats.toFixed(2)};
+                const newReportData = { column1: report.kat.toFixed(2), column2: report.ats.toFixed(2) };
                 setReportData((prevReportData) => [...prevReportData, newReportData]);
                 setAts(report.ats);
 
@@ -43,8 +43,8 @@ const MonthlyReportScreen: React.FC = () => {
         }
 
         reportHandler()
-        
-        
+
+
 
 
         return () => {
@@ -57,6 +57,7 @@ const MonthlyReportScreen: React.FC = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Laporan Bulanan Neraca Air</Text>
             <DropDownPicker
+                style={styles.dropdown}
                 open={dropdownOpen}
                 items={dropdownItem}
                 value={monthsPriorData}
@@ -68,20 +69,22 @@ const MonthlyReportScreen: React.FC = () => {
                 setItems={setDropdownItem}
                 setOpen={setDropdownOpen}
             />
-            <View style={styles.table}>
-                {reportData.map((item: any, index: any) => (
-                    <View key={index} style={styles.row}>
-                        <Text style={styles.cell}>{item.column1}</Text>
-                        <Text style={styles.cell}>{item.column2}</Text>
-                    </View>
-                ))}
+            <View style={styles.box}> 
+                <View style={styles.table}>
+                    {reportData.map((item: any, index: any) => (
+                        <View key={index} style={styles.row}>
+                            <Text style={styles.cell}> {item.column1}</Text>
+                            <Text style={styles.cell}>{item.column2}</Text>
+                        </View>
+                    ))}
+                </View>
+                {(ats <= 40 && ats >= 10) ? <Text style={styles.description}>Tidak disarankan untuk menanam padi</Text>
+                    : (ats <= 60 && ats >= 41) ? <Text style={styles.description}>Cukup tidak disarankan untuk menanam padi</Text>
+                        : (ats <= 90 && ats >= 61) ? <Text style={styles.description}>Sangat disarankan untuk menanam padi</Text>
+                            : (ats >= 91) ? <Text style={styles.description}>Cukup disarankan untuk menanam padi</Text>
+                                : <Text style={styles.description}>Sangat tidak disarankan untuk menanam padi</Text>}
+
             </View>
-            { (ats <= 40 && ats >= 10) ? <Text style={styles.description}>Tidak disarankan untuk menanam padi</Text>
-            : (ats <= 60 && ats >= 41) ? <Text style={styles.description}>Cukup tidak disarankan untuk menanam padi</Text>
-            : (ats <= 90 && ats >= 61) ? <Text style={styles.description}>Sangat disarankan untuk menanam padi</Text>
-            : (ats >= 91) ? <Text style={styles.description}>Cukup disarankan untuk menanam padi</Text>
-            :  <Text style={styles.description}>Sangat tidak disarankan untuk menanam padi</Text>}
-            
         </View>
     )
 }
@@ -90,16 +93,29 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: 20,
+    },
+    dropdown: {
+        borderWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        elevation: 10,
+
     },
     title: {
-        marginBottom: 10
+        marginBottom: 10,
+        borderColor: 'white',
     },
     table: {
         margin: 20,
     },
     row: {
         flexDirection: 'row',
+        marginStart: 25,
+        marginEnd: 25,
         marginBottom: 10,
     },
     cell: {
@@ -107,11 +123,21 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         textAlign: 'center',
-        width: 200
+        width: 'auto',
+        margin: 10,
     },
     description: {
         marginTop: 20
-    }
+    },
+    box:{
+        backgroundColor: 'white',
+        borderRadius: 10, 
+        justifyContent: 'center',
+        alignItems: 'center', 
+        padding:20,
+        marginTop:20,
+        
+    },
 });
 
 export default MonthlyReportScreen;

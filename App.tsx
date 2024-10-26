@@ -16,6 +16,8 @@ import { TokenService } from 'src/services/TokenService';
 import ProfileScreen from 'src/screens/ProfileScreen';
 import FieldScreen from 'src/screens/FieldScreen';
 import FieldDetailScreen from 'src/screens/FieldDetailScreen';
+import PredictScreen from 'src/screens/PredictScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -53,6 +55,7 @@ function LoggedTab() {
       <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} />
       <Tab.Screen name='Field' component={FieldScreen} />
       <Tab.Screen name='FieldDetail' component={FieldDetailScreen} />
+      <Tab.Screen name='Predict' component={PredictScreen} />
     </Tab.Navigator>
   )
 }
