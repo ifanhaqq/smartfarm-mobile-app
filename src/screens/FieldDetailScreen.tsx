@@ -13,7 +13,7 @@ const FieldDetailScreen: React.FC = () => {
         'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf')
     })
 
-
+   
     
     return (
         <View style={styles.container}>
