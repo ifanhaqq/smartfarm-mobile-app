@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Icon } from 'react-native-elements';
 import { color } from 'react-native-elements/dist/helpers';
-import { ReportService } from 'src/services/ReportService';
-
+import { ReportService } from 'src/services/ReportService'; 
+import CloudHeader from 'src/components/CloudHeader';
 const MonthlyReportScreen: React.FC = () => {
 
     const [monthsPriorData, setMonthsPriorData] = useState<number>(1);
@@ -56,63 +56,62 @@ const MonthlyReportScreen: React.FC = () => {
     }, [monthsPriorData]);
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={{backgroundColor: '#D7E8F4'}}>
+            <CloudHeader></CloudHeader>
+            <View style={styles.container}>
 
-            <Text style={styles.title}>Laporan Bulanan Neraca Air</Text>
-            <DropDownPicker
-                style={styles.dropdown}
-                open={dropdownOpen}
-                items={dropdownItem}
-                value={monthsPriorData}
-                setValue={(callback) => {
-                    // Manually update monthsPriorData from the dropdown
-                    const newValue = typeof callback === 'function' ? callback(monthsPriorData) : callback;
-                    setMonthsPriorData(newValue);
-                }}
-                setItems={setDropdownItem}
-                setOpen={setDropdownOpen}
-            />
-            <View style={styles.box}>
-                <View style={styles.table}>
+                <Text style={styles.title}>Laporan Bulanan Neraca Air</Text>
+                <DropDownPicker
+                    style={styles.dropdown}
+                    open={dropdownOpen}
+                    items={dropdownItem}
+                    value={monthsPriorData}
+                    setValue={(callback) => {
+                        // Manually update monthsPriorData from the dropdown
+                        const newValue = typeof callback === 'function' ? callback(monthsPriorData) : callback;
+                        setMonthsPriorData(newValue);
+                    }}
+                    setItems={setDropdownItem}
+                    setOpen={setDropdownOpen}
+                />
+                <View style={styles.box}>
+                    <View style={styles.table}>
 
-                    <Text style={{ color: '#616161', margin: 5, fontWeight: 'semibold', fontSize: 17 }} >Hasil laporan</Text>
-                    <View style={styles.col}>
-                        <View style={styles.col2}>
-                            <Image source={require("../assets/icon-soil.png")} style={styles.icon}></Image>
-                            <View style={{ flexDirection: 'column', marginStart: 5, }}>
-                                <Text style={{color:'#616161'}} > kadar air tanah</Text>
-                                <Text style={styles.value}>0.75</Text>
+                        <Text style={{ color: '#616161', margin: 5, fontWeight: 'semibold', fontSize: 17 }} >Hasil laporan</Text>
+                        <View style={styles.col}>
+                            <View style={styles.col2}>
+                                <Image source={require("../assets/icon-soil.png")} style={styles.icon}></Image>
+                                <View style={{ flexDirection: 'column', marginStart: 5, }}>
+                                    <Text style={{ color: '#616161' }} > kadar air tanah</Text>
+                                    <Text style={styles.value}>0.75</Text>
+                                </View>
+                            </View>
+                            <View style={styles.col2}>
+                                <Image source={require("../assets/icon-water.png")} style={{ width: 23, height: 30, }}></Image>
+                                <View style={{ flexDirection: 'column', marginStart: 5, }}>
+                                    <Text style={{ color: '#616161' }}> % air tanah tersedia</Text>
+                                    <Text style={styles.value}>0.75</Text>
+                                </View>
                             </View>
                         </View>
-                        <View style={styles.col2}>
-                            <Image source={require("../assets/icon-water.png")} style={{ width: 23, height: 30, }}></Image>
-                            <View style={{ flexDirection: 'column',  marginStart: 5,  }}>
-                                <Text style={{color:'#616161'}}> % air tanah tersedia</Text>
-                                <Text style={styles.value}>0.75</Text>
-                            </View>
-                        </View>
+
+                        {(ats <= 40 && ats >= 10) ? <Text style={styles.description}>Tidak disarankan untuk menanam padi</Text>
+                            : (ats <= 60 && ats >= 41) ? <Text style={styles.description}>Cukup tidak disarankan untuk menanam padi</Text>
+                                : (ats <= 90 && ats >= 61) ? <Text style={styles.description}>Sangat disarankan untuk menanam padi</Text>
+                                    : (ats >= 91) ? <Text style={styles.description}>Cukup disarankan untuk menanam padi</Text>
+                                        : <Text style={styles.description}>Sangat tidak disarankan untuk menanam padi</Text>}
                     </View>
-                    {reportData.map((item: any, index: any) => (
-                        <View key={index} style={styles.row}>
+                </View>
+                <View style={styles.row2}>
+                    <Image source={require('../assets/banner-1.png')} style={{ width: 350, height: 100, }}></Image>
+                    <Text style={styles.headline}>Berikut beberapa kegunaannya :</Text>
+                    <Text style={styles.p}>1. Mengatur jadwal tanam dan panen</Text>
+                    <Text style={styles.p}>2. Mengatur pemberian air irigasi dalam jumlah dan waktu yang tepat</Text>
+                    <Text style={styles.p}>3. Mempertimbangkan kesesuaian lahan pertanian</Text>
 
-                            <Text style={styles.cell}> {item.column1}</Text>
-
-                            <Text style={styles.cell}>{item.column2}</Text>
-                        </View>
-                    ))}
-
-                    {(ats <= 40 && ats >= 10) ? <Text style={styles.description}>Tidak disarankan untuk menanam padi</Text>
-                        : (ats <= 60 && ats >= 41) ? <Text style={styles.description}>Cukup tidak disarankan untuk menanam padi</Text>
-                            : (ats <= 90 && ats >= 61) ? <Text style={styles.description}>Sangat disarankan untuk menanam padi</Text>
-                                : (ats >= 91) ? <Text style={styles.description}>Cukup disarankan untuk menanam padi</Text>
-                                    : <Text style={styles.description}>Sangat tidak disarankan untuk menanam padi</Text>}
                 </View>
             </View>
-            <View style={styles.row}>
-                <Image source={require('../assets/banner-1.png')} style={{width: 350, height: 100,}}></Image>
-
-            </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -128,11 +127,12 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.2,
-        shadowRadius: 3,
-        elevation: 10,
-        color: '#616161',
+        shadowRadius: 1,
+        elevation: 5,
+        color: '#A1A1A1',
     },
     title: {
+        marginTop:50,
         marginBottom: 50,
         borderColor: 'white',
         color: '#545454',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     table: {
         paddingTop: 10,
-        paddingStart: 10, 
+        paddingStart: 10,
         backgroundColor: 'white',
         borderRadius: 10,
         color: '#616161',
@@ -156,6 +156,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         color: '#616161',
     },
+    row2: {
+        backgroundColor: 'white',
+        height: 'auto',
+        padding: 10,
+        borderRadius: 10,
+    },
     cell: {
         padding: 10,
 
@@ -167,7 +173,7 @@ const styles = StyleSheet.create({
     },
     description: {
         margin: 10,
-        padding: 10, 
+        padding: 10,
         borderWidth: 0.2,
         borderRadius: 5,
         borderColor: '#D9D9D9',
@@ -200,6 +206,21 @@ const styles = StyleSheet.create({
     },
     value: {
         color: '#407BFF',
+    },
+    headline:{
+        marginTop: 10,
+        marginStart:15,
+        fontSize: 14,
+        fontWeight: '300',
+        color: '#545454',
+
+    },
+    p:{
+        color: '#545454',
+        margin: 4,
+        marginStart: 15,
+        fontWeight: '300',
+
     },
 });
 

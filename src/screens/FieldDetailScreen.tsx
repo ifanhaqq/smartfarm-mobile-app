@@ -32,39 +32,10 @@ const FieldDetailScreen: React.FC = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.row}>
-          <View style={styles.box}>
-            <Image
-              source={require("../assets/icon-monitor.png")}
-              style={{ width: 40, height: 40 }}
-            ></Image>
-          </View>
-          <View style={{ rowGap: 5, marginStart: 10, borderEndWidth: 0.2 }}>
-            <Text
-              style={{ fontWeight: "bold", color: "#2255B8", marginEnd: 10 }}
-            >
-              Monitor{" "}
-            </Text>
-            <Text>Lahan</Text>
-          </View>
-          <View style={styles.box}>
-            <Image
-              source={require("../assets/icon-clock.png")}
-              style={{ width: 35, height: 35, marginStart: 20 }}
-            ></Image>
-          </View>
-          <View style={{ rowGap: 5, marginStart: 10 }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "#2255B8",
-                marginEnd: 10,
-                fontFamily: "Montserrat-Bold",
-              }}
-            >
-              History
-            </Text>
-            <Text>Device Lahan</Text>
+        <View style={styles.menuBox}>
+          <Text style={{ fontWeight: '500', color: '#255599', }}>menu</Text>
+          <View style={styles.menuItem}>
+            <Image source={require('../assets/icon-search.png')} style={styles.icon}></Image>
           </View>
         </View>
 
@@ -110,15 +81,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     opacity: 0.8,
   },
-  row: {
-    flexDirection: "row",
-    backgroundColor: "white",
-    borderRadius: 15,
-    margin: 20,
-    marginTop: 40,
-    padding: 19,
-    width: 350,
-    justifyContent: "center",
+  menuBox: { 
+    margin: 5,
+    backgroundColor: 'white',
   },
   row2: {
     backgroundColor: "white",
@@ -129,10 +94,7 @@ const styles = StyleSheet.create({
     width: 350,
     justifyContent: "center",
   },
-  box: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
+
   img: {
     width: 295,
     height: 150,
@@ -182,6 +144,20 @@ const styles = StyleSheet.create({
   },
   webView: {
     flex: 1,
+  },
+  menuItem: {
+    width: 50,
+    backgroundColor: '#255599',
+    flexDirection: 'row',
+    borderRadius: 10,
+    padding: 4,
+  },
+  icon: {
+    width: 40,
+    height: 40,
+  },
+  menuName: {
+
   },
 });
 

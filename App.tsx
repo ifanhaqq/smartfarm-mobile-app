@@ -52,7 +52,12 @@ function LoggedTab() {
             size={30}></Icon>
         }
       }} />
-      <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} />
+      <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} options={{
+        'headerStyle': {
+          backgroundColor: "#eff7fc",
+          height: 60,  
+        },
+      }} />
       <Tab.Screen name='Field' component={FieldScreen} />
       <Tab.Screen name='FieldDetail' component={FieldDetailScreen} />
       <Tab.Screen name='Predict' component={PredictScreen} />
