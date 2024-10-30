@@ -32,13 +32,27 @@ const FieldDetailScreen: React.FC = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.menuBox}>
+        <View style={styles.containerMenu}>
           <Text style={{ fontWeight: '500', color: '#255599', }}>menu</Text>
-          <View style={styles.menuItem}>
-            <Image source={require('../assets/icon-search.png')} style={styles.icon}></Image>
+          <View style={styles.menuBox}>
+            <View style={styles.menuItem}>
+              <View style={styles.item}>
+                <View style={styles.iconBox}>
+                  <Image source={require('../assets/icon-search.png')} style={styles.icon}></Image>
+                </View>
+                <Text style={styles.menuName}>Prediksi masa tanam</Text>
+              </View>
+              <View style={styles.menuItem}>
+                <View style={styles.item}>
+                  <View style={styles.iconBox}>
+                    <Image source={require('../assets/icon-report.png')} style={styles.icon}></Image>
+                  </View>
+                  <Text style={styles.menuName}>Prediksi masa tanam</Text>
+                </View>
+              </View>
+            </View> 
           </View>
         </View>
-
         <View style={styles.row2}>
           <Image
             source={require("../assets/field.png")}
@@ -77,13 +91,51 @@ const FieldDetailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    
     opacity: 0.8,
   },
-  menuBox: { 
+  containerMenu: {
     margin: 5,
     backgroundColor: 'white',
+    flex: 1,
+  },
+  menuBox: {
+   
+  },
+  menuItem: {
+    width: '20%',
+    borderRadius: 10,
+    padding: '4%',
+    marginEnd: '4%',
+    flexDirection: 'row', 
+  },
+  item: {
+    padding: '4%',
+  },
+  icon: {
+    width: 'auto',
+    height: '100%',
+  },
+  iconBox: {
+    backgroundColor: '#F4F6FA',
+    height: 'auto',
+    padding: '10%',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0.2,
+    elevation: 19,
+  },
+  menuName: {
+    marginTop: '2%',
+    textAlign: 'center',
+    flexDirection: 'column',
+    width: '110%',
+    flexWrap: 'wrap',
+    fontWeight: '400',
+    fontSize: 12,
+    color: '#0F2652',
   },
   row2: {
     backgroundColor: "white",
@@ -145,20 +197,7 @@ const styles = StyleSheet.create({
   webView: {
     flex: 1,
   },
-  menuItem: {
-    width: 50,
-    backgroundColor: '#255599',
-    flexDirection: 'row',
-    borderRadius: 10,
-    padding: 4,
-  },
-  icon: {
-    width: 40,
-    height: 40,
-  },
-  menuName: {
 
-  },
 });
 
 export default FieldDetailScreen;
