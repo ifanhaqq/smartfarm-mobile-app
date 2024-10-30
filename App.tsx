@@ -17,6 +17,7 @@ import ProfileScreen from 'src/screens/ProfileScreen';
 import FieldScreen from 'src/screens/FieldScreen';
 import FieldDetailScreen from 'src/screens/FieldDetailScreen';
 import PredictScreen from 'src/screens/PredictScreen';
+import HomeScreen from 'src/screens/HomeScreen';
 
 
 
@@ -25,42 +26,28 @@ const Tab = createBottomTabNavigator();
 
 const tokenService: TokenService = new TokenService();
 
+function MonitoringScreens() {
+  return (
+    // <NavigationContainer>
+      <Stack.Navigator initialRouteName='Field'>
+        <Stack.Screen name='Field' component={FieldScreen} options={{headerShown: false}}/>
+        <Stack.Screen name='Predict' component={PredictScreen} />
+        <Stack.Screen name='History' component={HistoryScreen} />
+        <Stack.Screen name='Monthly Report' component={MonthlyReportScreen} options={{headerShown: false}} />
+        <Stack.Screen name='Predict Rain' component={PredictScreen} />
+        <Stack.Screen name='Charts' component={MainChartScreen} options={{headerShown: false}}/>
+        <Stack.Screen name='Field Detail' component={FieldDetailScreen} options={{headerShown: false}}/>
+      </Stack.Navigator>
+    // </NavigationContainer>
+  )
+}
+
 function LoggedTab() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Charts" component={MainChartScreen} options={{
-        'headerStyle': {
-          backgroundColor: "#eff7fc",
-          height: 50
-        },
-        'tabBarIcon': () => {
-          return <Icon name="show-chart"
-            color="grey"
-            size={30}></Icon>
-        }
-      }} />
-      <Tab.Screen name='Rain History' component={RainHistoryScreen} />
+      <Tab.Screen name='Home' component={HomeScreen} />
+      <Tab.Screen name='Lahan' component={MonitoringScreens} options={{headerShown: false}}/>
       <Tab.Screen name='Profile' component={ProfileScreen} />
-      <Tab.Screen name='History' component={HistoryScreen} options={{
-        'headerStyle': {
-          backgroundColor: "#eff7fc",
-          height: 50
-        },
-        'tabBarIcon': () => {
-          return <Icon name="show-chart"
-            color="grey"
-            size={30}></Icon>
-        }
-      }} />
-      <Tab.Screen name='Monthly Report' component={MonthlyReportScreen} options={{
-        'headerStyle': {
-          backgroundColor: "#eff7fc",
-          height: 60,  
-        },
-      }} />
-      <Tab.Screen name='Field' component={FieldScreen} />
-      <Tab.Screen name='FieldDetail' component={FieldDetailScreen} />
-      <Tab.Screen name='Predict' component={PredictScreen} />
     </Tab.Navigator>
   )
 }

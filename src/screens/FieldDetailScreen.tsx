@@ -1,9 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { WebView } from "react-native-webview";
 import { useFonts } from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
 
-const FieldDetailScreen: React.FC = () => {
+const FieldDetailScreen: React.FC<{navigation: any}> = ({ navigation }) => {
   const html = `
         <!DOCTYPE html>
         <html>
@@ -33,24 +41,96 @@ const FieldDetailScreen: React.FC = () => {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.containerMenu}>
-          <Text style={{ fontWeight: '500', color: '#255599', }}>menu</Text>
+          <Text style={{ fontWeight: "500", color: "#255599" }}>menu</Text>
           <View style={styles.menuBox}>
             <View style={styles.menuItem}>
               <View style={styles.item}>
-                <View style={styles.iconBox}>
-                  <Image source={require('../assets/icon-search.png')} style={styles.icon}></Image>
-                </View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Predict")}
+                >
+                  <View style={styles.iconBox}>
+                    <Image
+                      source={require("../assets/icon-search.png")}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        marginHorizontal: "auto",
+                      }}
+                    ></Image>
+                  </View>
+                </TouchableOpacity>
                 <Text style={styles.menuName}>Prediksi masa tanam</Text>
               </View>
-              <View style={styles.menuItem}>
-                <View style={styles.item}>
+              <View style={styles.item}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("History")}
+                >
                   <View style={styles.iconBox}>
-                    <Image source={require('../assets/icon-report.png')} style={styles.icon}></Image>
+                    <Image
+                      source={require("../assets/icon-report.png")}
+                      style={{
+                        width: 30,
+                        height: 50,
+                        marginHorizontal: "auto",
+                      }}
+                    ></Image>
                   </View>
-                  <Text style={styles.menuName}>Prediksi masa tanam</Text>
-                </View>
+                </TouchableOpacity>
+                <Text style={styles.menuName}>Laporan curah hujan</Text>
               </View>
-            </View> 
+              <View style={styles.item}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Monthly Report")}
+                >
+                  <View style={styles.iconBox}>
+                    <Image
+                      source={require("../assets/icon-water.png")}
+                      style={{
+                        width: 33,
+                        height: 50,
+                        marginHorizontal: "auto",
+                      }}
+                    ></Image>
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.menuName}>Neraca air</Text>
+              </View>
+              <View style={styles.item}>
+                <View style={styles.iconBox}>
+                  <Image
+                    source={require("../assets/icon-cloud.png")}
+                    style={{
+                      width: 55,
+                      height: 30,
+                      marginHorizontal: "auto",
+                      marginVertical: "auto",
+                    }}
+                  ></Image>
+                </View>
+                <Text style={styles.menuName}>Prediksi hari hujan</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.menuBox}>
+            <View style={[styles.menuItem, { justifyContent: "flex-start" }]}>
+              <View style={styles.item}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Charts")}
+                >
+                  <View style={styles.iconBox}>
+                    <Image
+                      source={require("../assets/icon-monitor.png")}
+                      style={{
+                        width: 33,
+                        height: 55,
+                        marginHorizontal: "auto",
+                      }}
+                    ></Image>
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.menuName}>Monitor lahan</Text>
+              </View>
+            </View>
           </View>
         </View>
         <View style={styles.row2}>
@@ -91,57 +171,59 @@ const FieldDetailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+
     opacity: 0.8,
   },
   containerMenu: {
-    margin: 5,
-    backgroundColor: 'white',
+    margin: 20,
+    backgroundColor: "white",
     flex: 1,
+    borderRadius: 15,
   },
-  menuBox: {
-   
-  },
+  menuBox: {},
   menuItem: {
-    width: '20%',
+    flex: 1,
+    justifyContent: "space-between",
+    // borderWidth: 1,
     borderRadius: 10,
-    padding: '4%',
-    marginEnd: '4%',
-    flexDirection: 'row', 
+    padding: "4%",
+    marginEnd: "4%",
+    flexDirection: "row",
+    backgroundColor: "#fff",
   },
   item: {
-    padding: '4%',
+    // padding: "4%",
+    flex: 0,
+    // borderWidth: 1,
+    width: 80,
   },
   icon: {
-    width: 'auto',
-    height: '100%',
+    width: "auto",
+    height: 90,
   },
   iconBox: {
-    backgroundColor: '#F4F6FA',
-    height: 'auto',
-    padding: '10%',
+    backgroundColor: "#F4F6FA",
+    height: 60,
+    width: 60,
+    marginHorizontal: "auto",
+    padding: "10%",
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 0.2,
-    elevation: 19,
   },
   menuName: {
-    marginTop: '2%',
-    textAlign: 'center',
-    flexDirection: 'column',
-    width: '110%',
-    flexWrap: 'wrap',
-    fontWeight: '400',
+    marginTop: "2%",
+    textAlign: "center",
+    flexDirection: "column",
+    width: "110%",
+    flexWrap: "wrap",
+    fontWeight: "400",
     fontSize: 12,
-    color: '#0F2652',
+    color: "#0F2652",
   },
   row2: {
     backgroundColor: "white",
     borderRadius: 15,
     margin: 20,
-    marginTop: 40,
+    marginTop: 20,
     padding: 19,
     width: 350,
     justifyContent: "center",
@@ -197,7 +279,6 @@ const styles = StyleSheet.create({
   webView: {
     flex: 1,
   },
-
 });
 
 export default FieldDetailScreen;

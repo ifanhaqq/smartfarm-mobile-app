@@ -10,7 +10,7 @@ import {
 import { Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 
-const FieldScreen: React.FC = () => {
+const FieldScreen: React.FC<{navigation: any}> = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.wrapper}>
@@ -63,7 +63,7 @@ const FieldScreen: React.FC = () => {
                                         </Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity style={styles.detailButton}>
+                                <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('Field Detail')}>
                                     <Text style={{ color: "#fff", marginHorizontal: 18, fontSize: 18 }}>
                                         Detail
                                     </Text>
