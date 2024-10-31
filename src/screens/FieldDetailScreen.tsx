@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,8 +10,64 @@ import {
 import { WebView } from "react-native-webview";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
+import { FieldService } from "src/services/FieldService";
+import Loading from "src/components/Loading";
 
-const FieldDetailScreen: React.FC<{navigation: any}> = ({ navigation }) => {
+const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation, route }) => {
+  const fieldService: FieldService = new FieldService();
+  const [loaded, setLoaded] = useState(false);
+  const [field, setField] = useState<{
+    id: number;
+    image: string;
+    name: string;
+    datecrop: string;
+    harveststate: string;
+    description: string;
+    latitude: string;
+    longitude: string;
+    created_at: string;
+    updated_at: string;
+    userId: number;
+    deviceId: string;
+  }>();
+
+  async function main() {
+    try {
+      const fields: {
+        id: number;
+        image: string;
+        name: string;
+        datecrop: string;
+        harveststate: string;
+        description: string;
+        latitude: string;
+        longitude: string;
+        created_at: string;
+        updated_at: string;
+        userId: number;
+        deviceId: string;
+      } = await fieldService.getField(route.params.fieldId);
+      console.log(JSON.stringify(fields, null, 2));
+
+      setField(fields);
+    } catch (error) {
+      console.log("error fetching fields:", error);
+    }
+  }
+
+  useEffect(() => {
+    function runEffect() {
+      main();
+      setLoaded(true);
+    }
+
+    runEffect();
+  }, []);
+
+  if (!loaded) {
+    return <Loading />;
+  }
+
   const html = `
         <!DOCTYPE html>
         <html>
@@ -27,7 +83,7 @@ const FieldDetailScreen: React.FC<{navigation: any}> = ({ navigation }) => {
             <div id="map"></div>
             <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
             <script>
-                var map = L.map('map').setView([51.505, -0.09], 13);
+                var map = L.map('map').setView([${field!.latitude}, ${field!.longitude}], 13);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -135,12 +191,12 @@ const FieldDetailScreen: React.FC<{navigation: any}> = ({ navigation }) => {
         </View>
         <View style={styles.row2}>
           <Image
-            source={require("../assets/field.png")}
-            style={styles.img}
+            source={{uri: "https://planting-prediction.petanitech.com/storage/img/fields/" + field!.image}}
+            // style={styles.img}
           ></Image>
           <View style={styles.col}>
             <Text style={styles.cell}> Nama Lahan</Text>
-            <Text style={styles.cell2}>Lahan Padi</Text>
+            <Text style={styles.cell2}>{field!.name}</Text>
           </View>
 
           <View style={styles.col}>
