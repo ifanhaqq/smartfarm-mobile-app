@@ -92,11 +92,15 @@ const styles = StyleSheet.create({
         marginTop: '10%',
         marginStart: '2%',
         marginEnd: '2%',
+        borderBottomWidth: 0.3,
+        borderBottomColor: '#DDDDDD', 
+        rowGap: 20,
     },
     vector: {
         alignSelf: 'center',
         width: 300,
         height: 330,
+       
 
     },
     containerValue: {
