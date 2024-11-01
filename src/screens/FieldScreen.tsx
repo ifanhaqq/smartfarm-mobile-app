@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { FieldService } from "src/services/FieldService";
-import { LinearGradient } from "expo-linear-gradient";
+import * as FileSystem from "expo-file-system";
 import FieldContext from "src/contexts/FieldContext";
 import Loading from "src/components/Loading";
 
@@ -59,8 +59,9 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }
 
   useEffect(() => {
-    function runEffect() {
-      main();
+    async function runEffect() {
+      main()
+      
       setLoaded(true);
     }
 
@@ -81,7 +82,10 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               <View key={index} style={styles.fieldColumn}>
                 <View style={styles.fieldImageWrapper}>
                   <Image
-                    source={{uri: "https://planting-prediction.petanitech.com/storage/img/fields/" + field.image}}
+                    source={{
+                      uri:
+                        `https://planting-prediction.petanitech.com/storage/img/fields/${field.image}`,
+                    }}
                     style={styles.fieldImage}
                   />
                 </View>
@@ -126,9 +130,11 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                   </View>
                   <TouchableOpacity
                     style={styles.detailButton}
-                    onPress={() => navigation.navigate("Field Detail", {
-                        fieldId: field.id
-                    })}
+                    onPress={() =>
+                      navigation.navigate("Field Detail", {
+                        fieldId: field.id,
+                      })
+                    }
                   >
                     <Text
                       style={{
