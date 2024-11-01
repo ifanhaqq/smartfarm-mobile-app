@@ -9,11 +9,14 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { useFonts } from "expo-font";
-import { NavigationContainer } from "@react-navigation/native";
+import * as FileSystem from "expo-file-system";
 import { FieldService } from "src/services/FieldService";
 import Loading from "src/components/Loading";
 
-const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation, route }) => {
+const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
+  navigation,
+  route,
+}) => {
   const fieldService: FieldService = new FieldService();
   const [loaded, setLoaded] = useState(false);
   const [field, setField] = useState<{
@@ -29,11 +32,14 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
     updated_at: string;
     userId: number;
     deviceId: string;
+    deviceName: string;
   }>();
+
+  console.log("field id:", route.params.fieldId);
 
   async function main() {
     try {
-      const fields: {
+      const field: {
         id: number;
         image: string;
         name: string;
@@ -46,10 +52,12 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
         updated_at: string;
         userId: number;
         deviceId: string;
+        deviceName: string;
       } = await fieldService.getField(route.params.fieldId);
-      console.log(JSON.stringify(fields, null, 2));
 
-      setField(fields);
+      setField(field);
+
+      console.log(field);
     } catch (error) {
       console.log("error fetching fields:", error);
     }
@@ -58,6 +66,7 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
   useEffect(() => {
     function runEffect() {
       main();
+
       setLoaded(true);
     }
 
@@ -83,7 +92,10 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
             <div id="map"></div>
             <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
             <script>
-                var map = L.map('map').setView([${field!.latitude}, ${field!.longitude}], 13);
+                var map = L.map('map').setView([${field?.latitude}, ${field?.longitude}], 13);
+                var marker = L.marker([${field?.latitude}, ${field?.longitude}], { draggable: false }).addTo(map);
+                // show popup marker
+                marker.bindPopup('${field?.name}').openPopup();
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -170,9 +182,7 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
           <View style={styles.menuBox}>
             <View style={[styles.menuItem, { justifyContent: "flex-start" }]}>
               <View style={styles.item}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Charts")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("Charts")}>
                   <View style={styles.iconBox}>
                     <Image
                       source={require("../assets/icon-monitor.png")}
@@ -190,13 +200,22 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
           </View>
         </View>
         <View style={styles.row2}>
-          <Image
-            source={{uri: "https://planting-prediction.petanitech.com/storage/img/fields/" + field!.image}}
-            // style={styles.img}
-          ></Image>
+          {!field?.image ? (
+            <Image
+              source={require("../assets/alternative-image.png")}
+              style={styles.img}
+            ></Image>
+          ) : (
+            <Image
+              source={{
+                uri: `https://planting-prediction.petanitech.com/storage/img/fields/${field.image}`,
+              }}
+              style={styles.img}
+            ></Image>
+          )}
           <View style={styles.col}>
             <Text style={styles.cell}> Nama Lahan</Text>
-            <Text style={styles.cell2}>{field!.name}</Text>
+            <Text style={styles.cell2}>{field?.name}</Text>
           </View>
 
           <View style={styles.col}>
@@ -206,7 +225,7 @@ const FieldDetailScreen: React.FC<{navigation: any, route: any}> = ({ navigation
 
           <View style={styles.col}>
             <Text style={styles.cell}> Device Iot</Text>
-            <Text style={styles.iotText}>IoT 1</Text>
+            <Text style={styles.iotText}>{field?.deviceName}</Text>
           </View>
 
           {/* WebView Container */}
