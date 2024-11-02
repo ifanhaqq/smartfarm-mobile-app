@@ -16,9 +16,9 @@ const HomeScreen: React.FC = () => {
     // console.log(fieldContext);
     return (
         <ImageBackground
-            source={require('../assets/background-screen.png')} 
+            source={require('../assets/background-screen.png')}
             style={styles.background}
-            resizeMode="cover"  
+            resizeMode="cover"
         >
             <CloudHeader></CloudHeader>
             <ScrollView style={styles.background}>
@@ -36,30 +36,32 @@ const HomeScreen: React.FC = () => {
                     <ScrollView
                         horizontal={true}
                         style={styles.slide} >
-                        <View style={styles.slideColoumn}>
-                            <Image source={require('../assets/home-feature-1.png')} style={styles.slideImg}></Image>
-                            <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Prediksi masa tanam</Text>
-                            <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                boxes that can scroll horizontally while.</Text>
-                        </View>
-                        <View style={styles.slideColoumn}>
-                            <Image source={require('../assets/home-feature-2.png')} style={styles.slideImg}></Image>
-                            <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Smart Farming</Text>
-                            <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                boxes that can scroll horizontally while.</Text>
-                        </View>
-                        <View style={styles.slideColoumn}>
-                            <Image source={require('../assets/home-feature-3.png')} style={styles.slideImg}></Image>
-                            <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Peta Lahan </Text>
-                            <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                boxes that can scroll horizontally while.</Text>
-                        </View>
-                        <View style={styles.slideColoumn}>
-                            <Image source={require('../assets/home-feature-4.png')} style={styles.slideImg}></Image>
-                            <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Neraca air</Text>
-                            <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                boxes that can scroll horizontally while.</Text>
-                        </View>
+                    
+                            <View style={styles.slideColoumn}>
+                                <Image source={require('../assets/home-feature-1.png')} style={styles.slideImg}></Image>
+                                <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Prediksi masa tanam</Text>
+                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
+                                    boxes that can scroll horizontally while.</Text>
+                            </View>
+                            <View style={styles.slideColoumn}>
+                                <Image source={require('../assets/home-feature-2.png')} style={styles.slideImg}></Image>
+                                <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Smart Farming</Text>
+                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
+                                    boxes that can scroll horizontally while.</Text>
+                            </View>
+                            <View style={styles.slideColoumn}>
+                                <Image source={require('../assets/home-feature-3.png')} style={styles.slideImg}></Image>
+                                <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Peta Lahan </Text>
+                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
+                                    boxes that can scroll horizontally while.</Text>
+                            </View>
+                            <View style={styles.slideColoumn}>
+                                <Image source={require('../assets/home-feature-4.png')} style={styles.slideImg}></Image>
+                                <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Neraca air</Text>
+                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
+                                    boxes that can scroll horizontally while.</Text>
+                            </View>
+               
                     </ScrollView>
                     <View >
                         <Image source={require('../assets/banner-home-2.png')} style={styles.homeBanner}></Image>
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    
     helloBar: {
         flexDirection: 'row',
         margin: '5%',
@@ -126,10 +129,8 @@ const styles = StyleSheet.create({
     slide: {
         flex: 1,
         flexDirection: 'row',
-        marginStart: '1%',
-        marginEnd: '1%',
+        marginStart: '1%', 
         marginBottom: '5%',
-        paddingRight: '2%',
     },
     slideColoumn: {
         flexDirection: 'column',
@@ -138,12 +139,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         marginEnd: '2%',
+        
     },
     slideImg: {
         width: 150,
         height: 150,
         borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
+        borderTopLeftRadius: 20, 
 
     },
     paragraph: {

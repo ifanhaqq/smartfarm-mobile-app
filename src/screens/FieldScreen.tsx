@@ -61,7 +61,7 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   useEffect(() => {
     async function runEffect() {
       main()
-      
+
       setLoaded(true);
     }
 
@@ -195,13 +195,24 @@ const styles = StyleSheet.create({
     height: 300,
   },
   h1: {
-    fontSize: 20,
+    fontSize: 17,
     color: "#2255B8",
     fontWeight: "semibold",
+    backgroundColor: 'white',
     borderBottomColor: "#D9D9D9",
     borderBottomWidth: 0.2,
-    // marginVertical: 15,
-    marginTop: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 5,
+    width: '100%',
+    borderRadius: 10,
+    padding: 10,
+    // marginVertical: 15, 
+    marginBottom: '2%',
+    textAlign: 'center',
+
   },
   box2: {
     // backgroundColor: '#5C93E0',
