@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     },
     loginContainer: {
         height: 400,
-        width: 300,
+        width: 300, 
         // position: 'absolute',
         // zIndex: 2
     },

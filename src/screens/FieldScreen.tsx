@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect,  } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from "react-native";
 import { FieldService } from "src/services/FieldService";
 import * as FileSystem from "expo-file-system";
 import FieldContext from "src/contexts/FieldContext";
 import Loading from "src/components/Loading";
+
+import CloudHeader from 'src/components/CloudHeader';
 
 const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const fieldService: FieldService = new FieldService();
@@ -73,6 +76,12 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }
 
   return (
+    <ImageBackground
+    source={require('../assets/background-screen.png')}
+    style={styles.background}
+    resizeMode="cover"
+>
+<CloudHeader></CloudHeader>
     <ScrollView style={styles.container}>
       <View style={styles.wrapper}>
         <View style={[styles.box]}>
@@ -151,48 +160,58 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             ))}
           </ScrollView>
         </View>
-
-        <View style={styles.box2}>
-          <Image
-            source={require("../assets/vektor-lahan.png")}
-            style={styles.img2}
-          ></Image>
-        </View>
+        <Image
+          source={require("../assets/vector-lahan.png")}
+          style={styles.img2}  ></Image>
       </View>
     </ScrollView>
+     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#DDECF8",
-    paddingTop: 50,
-  },
+  container: {  
+  }, 
+  background: {
+    flex: 1,
 
+},
   wrapper: {
-    backgroundColor: "#5C93E0",
-    marginStart: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    marginStart: '2%',
+    marginEnd: '2%',
     // marginRight: 20,
-    marginTop: 20,
-    width: 340,
+    marginTop: '5%',
+    width: '96%', 
+    marginBottom: '10%',
     borderRadius: 15,
+    flex: 1,
+    paddingBottom: '27%',
+
   },
 
   box: {
+    height: '85%',
     backgroundColor: "#fff",
     padding: 5,
     // borderWidth: 0.4,
     borderColor: "grey",
     borderRadius: 15, // Shadow color
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 5,
   },
 
   fieldsWrapper: {
-    width: 320,
+    width: '100%',
     borderRadius: 30,
     borderBottomWidth: 0.2,
     paddingBottom: 10,
     borderBottomColor: "#545454",
-    height: 300,
+    height: '90%',
+
   },
   h1: {
     fontSize: 17,
@@ -201,11 +220,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomColor: "#D9D9D9",
     borderBottomWidth: 0.2,
-    shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    elevation: 5,
+
     width: '100%',
     borderRadius: 10,
     padding: 10,
@@ -215,15 +230,14 @@ const styles = StyleSheet.create({
 
   },
   box2: {
-    // backgroundColor: '#5C93E0',
-    width: 350,
+    // backgroundColor: '#5C93E0',  
     marginStart: 15,
     borderRadius: 10,
   },
   img2: {
-    width: 150,
-    height: 140,
-    margin: 15,
+    width: 300,
+    height: 180, 
+    marginStart: '9%',
   },
   fieldColumn: {
     flex: 1,

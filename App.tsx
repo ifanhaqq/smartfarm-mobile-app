@@ -20,6 +20,7 @@ import FieldDetailScreen from "src/screens/FieldDetailScreen";
 import PredictScreen from "src/screens/PredictScreen";
 import HomeScreen from "src/screens/HomeScreen";
 import Loading from "src/components/Loading";
+import EditProfileScreen from "src/screens/EditProfileScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -74,6 +75,10 @@ function LoggedTab() {
       <Tab.Screen
        name="Profile"
         component={ProfileScreen}
+        options={{ headerShown: false }} />
+      <Tab.Screen
+       name="EditProfile"
+        component={EditProfileScreen}
         options={{ headerShown: false }} />
     </Tab.Navigator>
   );
