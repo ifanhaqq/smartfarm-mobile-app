@@ -114,7 +114,9 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
             <View style={styles.menuItem}>
               <View style={styles.item}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Predict")}
+                  onPress={() => navigation.navigate("Predict", {
+                    fieldId: field?.id,
+                  })}
                 >
                   <View style={styles.iconBox}>
                     <Image
