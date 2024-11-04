@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -10,10 +10,54 @@ import {
 
 } from "react-native";
 import CloudHeader from 'src/components/CloudHeader';
+import Loading from "src/components/Loading";
+import FieldContext from "src/contexts/FieldContext";
+import { FieldService } from "src/services/FieldService";
 
 const HomeScreen: React.FC = () => {
+    const fieldService: FieldService = new FieldService();
+    const fieldContext = useContext(FieldContext);
+    const { setField } = fieldContext;
+    const [loaded, setLoaded] = useState(false);
 
-    // console.log(fieldContext);
+    async function main() {
+        try {
+            const fields: {
+              id: number;
+              image: string;
+              name: string;
+              datecrop: string;
+              harveststate: string;
+              description: string;
+              latitude: string;
+              longitude: string;
+              created_at: string;
+              updated_at: string;
+              userId: number;
+              deviceId: string;
+            }[] = await fieldService.getAllFields();
+            console.log(JSON.stringify(fields, null, 2));
+      
+            setField(fields);
+          } catch (error) {
+            console.log("error fetching fields:", error);
+          }
+    }
+
+    useEffect(() => {
+        async function runEffect() {
+            main();
+
+            setLoaded(true);
+        }
+
+        runEffect();
+    }, []);
+
+    if (!loaded) {
+        return <Loading />;
+      }
+
     return (
        
         <ImageBackground

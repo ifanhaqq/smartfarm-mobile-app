@@ -64,22 +64,25 @@ function LoggedTab() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-       name="Home" 
-       component={HomeScreen} 
-       options={{ headerShown: false }}/>
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen
         name="Lahan"
         component={MonitoringScreens}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-       name="Profile"
+        name="Profile"
         component={ProfileScreen}
-        options={{ headerShown: false }} />
+        options={{ headerShown: false }}
+      />
       <Tab.Screen
-       name="EditProfile"
+        name="EditProfile"
         component={EditProfileScreen}
-        options={{ headerShown: false }} />
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 }
@@ -112,23 +115,25 @@ export default function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {user ? (
-            <>
-              <Stack.Screen
-                name="Logged"
-                component={LoggedTab}
-                options={{ headerShown: false }}
-              />
-            </>
-          ) : (
-            <>
-              <Stack.Screen name="Login" component={LoginScreen} />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FieldContext.Provider value={{ field, setField }}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {user ? (
+              <>
+                <Stack.Screen
+                  name="Logged"
+                  component={LoggedTab}
+                  options={{ headerShown: false }}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="Login" component={LoginScreen} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FieldContext.Provider>
     </UserContext.Provider>
   );
 }

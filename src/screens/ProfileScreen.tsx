@@ -3,10 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, 
 import UserContext from 'src/contexts/AuthContext';
 import { AuthService } from 'src/services/AuthService';
 import CloudHeader from 'src/components/CloudHeader';
+import FieldContext from 'src/contexts/FieldContext';
 
 const ProfileScreen: React.FC = () => {
 
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext);
+    const { field, setField} = useContext(FieldContext);
+    console.log(field)
     const authService: AuthService = new AuthService();
 
     async function handleLogout() {
@@ -32,11 +35,11 @@ const ProfileScreen: React.FC = () => {
                     <Image source={require('../assets/vector-profile.png')} style={styles.profileImage}></Image>
                     <View style={styles.boxItem}>
                         <View style={styles.wrapItem}>
-                            <Text style={styles.textNumber}>3</Text>
+                            <Text style={styles.textNumber}>{field.length}</Text>
                             <Text style={styles.text}>Lahan</Text>
                         </View>
                         <View style={styles.wrapItem}>
-                            <Text style={styles.textNumber}>3</Text>
+                            <Text style={styles.textNumber}>{field.length}</Text>
                             <Text style={styles.text}>IoT Sensor</Text>
                         </View>
                     </View>
@@ -44,11 +47,11 @@ const ProfileScreen: React.FC = () => {
                     <View style={styles.dataUser}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={[styles.text, styles.align]}>Nama Lengkap</Text>
-                            <Text style={[styles.text, styles.align]}>petani1</Text>
+                            <Text style={[styles.text, styles.align]}>{user.name}</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={[styles.text, styles.align]}>Email</Text>
-                            <Text style={[styles.text, styles.align]}>farmer@mail.com</Text>
+                            <Text style={[styles.text, styles.align]}>{user.email}</Text>
                         </View>
 
                         <View style={{ flexDirection: 'row', marginTop: '15%',  }}>
