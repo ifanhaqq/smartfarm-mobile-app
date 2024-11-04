@@ -15,12 +15,15 @@ const HomeScreen: React.FC = () => {
 
     // console.log(fieldContext);
     return (
+       
         <ImageBackground
             source={require('../assets/background-screen.png')}
             style={styles.background}
             resizeMode="cover"
-        >
-            <CloudHeader></CloudHeader>
+        > 
+             <CloudHeader> 
+             </CloudHeader>
+           
             <ScrollView style={styles.background}>
                 <View style={styles.container}>
                     <View style={styles.helloBar}>
@@ -35,7 +38,7 @@ const HomeScreen: React.FC = () => {
                     </View>
                     <ScrollView
                         horizontal={true}
-                        style={styles.slide} >
+                        style={[styles.slide, {padding: 10, overflow: 'visible' ,}]} >
                     
                             <View style={styles.slideColoumn}>
                                 <Image source={require('../assets/home-feature-1.png')} style={styles.slideImg}></Image>

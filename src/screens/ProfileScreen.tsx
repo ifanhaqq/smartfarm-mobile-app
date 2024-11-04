@@ -29,7 +29,7 @@ const ProfileScreen: React.FC = () => {
             <CloudHeader></CloudHeader>
             <ScrollView style={styles.container}>
                 <View style={styles.containerItem}>
-                    <Image source={require('../assets/field.png')} style={styles.profileImage}></Image>
+                    <Image source={require('../assets/vector-profile.png')} style={styles.profileImage}></Image>
                     <View style={styles.boxItem}>
                         <View style={styles.wrapItem}>
                             <Text style={styles.textNumber}>3</Text>
@@ -37,26 +37,26 @@ const ProfileScreen: React.FC = () => {
                         </View>
                         <View style={styles.wrapItem}>
                             <Text style={styles.textNumber}>3</Text>
-                            <Text style={styles.text}>IOt Sensor</Text>
+                            <Text style={styles.text}>IoT Sensor</Text>
                         </View>
                     </View>
 
                     <View style={styles.dataUser}>
                         <View style={{ flexDirection: 'row' }}>
-                           <Text style={[styles.text, styles.align]}>Nama Lengkap</Text>
-                           <Text style={[styles.text, styles.align]}>petani1</Text>
+                            <Text style={[styles.text, styles.align]}>Nama Lengkap</Text>
+                            <Text style={[styles.text, styles.align]}>petani1</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
-                           <Text style={[styles.text, styles.align]}>Email</Text>
-                           <Text style={[styles.text, styles.align]}>farmer@mail.com</Text>
+                            <Text style={[styles.text, styles.align]}>Email</Text>
+                            <Text style={[styles.text, styles.align]}>farmer@mail.com</Text>
                         </View>
 
-                        <View style={{ flexDirection:'row' , marginTop: '15%',}}>
-                            <TouchableOpacity style={styles.loginButton}  >
-                                <Text style={{ textAlign: 'center', paddingVertical: 5, color: '#fff', fontSize: 22 }}>Edit</Text>
+                        <View style={{ flexDirection: 'row', marginTop: '15%',  }}>
+                            <TouchableOpacity style={styles.EditButton}  >
+                                <Text style={styles.editText}>Edit</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.loginButton} onPress={handleLogout}>
-                                <Text style={{ textAlign: 'center', paddingVertical: 5, color: '#fff', fontSize: 22 }}>Logout</Text>
+                            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                                <Text style={styles.logoutText}>Logout</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -81,10 +81,11 @@ const styles = StyleSheet.create({
         height: 100,
         margin: '10%',
         alignSelf: 'center',
+        
 
     },
     containerItem: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', 
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
         marginTop: '10%',
         marginLeft: '10%',
         marginRight: '10%',
@@ -99,10 +100,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 20,
         margin: '5%',
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+        elevation: 5,
     },
     wrapItem: {
         flexDirection: 'column',
-        width: '60%', 
+        width: '60%',
         padding: '2%',
     },
     text: {
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
 
     },
-    align:{
+    align: {
         marginEnd: '40%',
         marginBottom: '5%',
     },
@@ -122,20 +128,45 @@ const styles = StyleSheet.create({
     },
     dataUser: {
         backgroundColor: 'white',
-       margin: '5%',
-       padding: '4%',
+        margin: '5%',
+        padding: '4%',
         borderRadius: 20,
-        flex:1,
+        flex: 1,
         width: '90%',
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+        elevation: 5,
 
     },
 
-    loginButton: {
-        backgroundColor: '#b82222',
+    logoutButton: {
+        backgroundColor: '#FFA9A9',
         width: '50%',
-        borderRadius: 20, 
+        borderRadius: 20,
+        marginEnd: '2%',
+
+    },
+    EditButton: {
+        backgroundColor: '#C7D3E5',
+        width: '50%',
+        borderRadius: 20,
         marginEnd: '2%',
     },
+    logoutText: {
+        textAlign: 'center',
+        paddingVertical: 5,
+        fontSize: 17,
+        color: '#881616',
+    },
+    editText: {
+        textAlign: 'center',
+        paddingVertical: 5,
+        fontSize: 17,
+        color: '#0F2652',
+    },
+
 });
 
 export default ProfileScreen;

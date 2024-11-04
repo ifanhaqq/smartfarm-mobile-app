@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { useFonts } from "expo-font";
@@ -106,10 +107,15 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
     `;
 
   return (
+    <ImageBackground
+    source={require('../assets/background-screen.png')}
+    style={{ flex: 1, }}
+    resizeMode="cover"
+> 
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.containerMenu}>
-          <Text style={{ fontWeight: "500", color: "#255599" }}>menu</Text>
+          <Text style={{ fontWeight: "500", color: "#255599" , marginStart: '5%', marginTop: '5%'}}>menu</Text>
           <View style={styles.menuBox}>
             <View style={styles.menuItem}>
               <View style={styles.item}>
@@ -122,8 +128,8 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
                     <Image
                       source={require("../assets/icon-search.png")}
                       style={{
-                        width: 50,
-                        height: 50,
+                        width: 40,
+                        height: 40,
                         marginHorizontal: "auto",
                       }}
                     ></Image>
@@ -137,11 +143,12 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
                 >
                   <View style={styles.iconBox}>
                     <Image
-                      source={require("../assets/icon-report.png")}
+                      source={require("../assets/icon-cloud.png")}
                       style={{
-                        width: 30,
-                        height: 50,
+                        width: 55,
+                        height: 30,
                         marginHorizontal: "auto",
+                        marginVertical: "auto",
                       }}
                     ></Image>
                   </View>
@@ -156,7 +163,7 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
                     <Image
                       source={require("../assets/icon-water.png")}
                       style={{
-                        width: 33,
+                        width: 39,
                         height: 50,
                         marginHorizontal: "auto",
                       }}
@@ -166,31 +173,13 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
                 <Text style={styles.menuName}>Neraca air</Text>
               </View>
               <View style={styles.item}>
-                <View style={styles.iconBox}>
-                  <Image
-                    source={require("../assets/icon-cloud.png")}
-                    style={{
-                      width: 55,
-                      height: 30,
-                      marginHorizontal: "auto",
-                      marginVertical: "auto",
-                    }}
-                  ></Image>
-                </View>
-                <Text style={styles.menuName}>Prediksi hari hujan</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.menuBox}>
-            <View style={[styles.menuItem, { justifyContent: "flex-start" }]}>
-              <View style={styles.item}>
                 <TouchableOpacity onPress={() => navigation.navigate("Charts")}>
                   <View style={styles.iconBox}>
                     <Image
                       source={require("../assets/icon-monitor.png")}
                       style={{
-                        width: 33,
-                        height: 55,
+                        width: 35,
+                        height: 45,
                         marginHorizontal: "auto",
                       }}
                     ></Image>
@@ -200,8 +189,9 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
               </View>
             </View>
           </View>
+         
         </View>
-        <View style={styles.row2}>
+        <View style={styles.row2}> 
           {!field?.image ? (
             <Image
               source={require("../assets/alternative-image.png")}
@@ -242,20 +232,22 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
         </View>
       </View>
     </ScrollView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    opacity: 0.8,
+ 
   },
   containerMenu: {
-    margin: 20,
+    marginTop: '20%',
+    margin: '4%',
     backgroundColor: "white",
     flex: 1,
     borderRadius: 15,
+    padding: '2%'
   },
   menuBox: {},
   menuItem: {
@@ -272,7 +264,9 @@ const styles = StyleSheet.create({
     // padding: "4%",
     flex: 0,
     // borderWidth: 1,
-    width: 80,
+    width: '25%', 
+    marginBottom: '2%',
+    marginRight: '3%',
   },
   icon: {
     width: "auto",
@@ -280,17 +274,17 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     backgroundColor: "#F4F6FA",
-    height: 60,
-    width: 60,
+    height: '84%',
+    width: '95%',
     marginHorizontal: "auto",
     padding: "10%",
-    borderRadius: 10,
+    borderRadius: 20,
   },
   menuName: {
     marginTop: "2%",
     textAlign: "center",
     flexDirection: "column",
-    width: "110%",
+    width: "100%",
     flexWrap: "wrap",
     fontWeight: "400",
     fontSize: 12,
@@ -299,26 +293,26 @@ const styles = StyleSheet.create({
   row2: {
     backgroundColor: "white",
     borderRadius: 15,
-    margin: 20,
-    marginTop: 20,
-    padding: 19,
-    width: 350,
+    margin: '4%',
+    marginTop: '5%',
+    padding: '3%', 
     justifyContent: "center",
   },
 
   img: {
     width: 295,
     height: 150,
+    borderRadius: 20,
   },
   cell: {
-    marginTop: 15,
-    fontWeight: "bold",
+    marginTop: 15, 
+    color: '#545454',
   },
   cell2: {
     marginTop: 15,
     marginLeft: "auto",
-    color: "#2255B8",
-    fontWeight: "500",
+    color: "#2255B8", 
+    fontWeight: '500',
   },
   col: {
     flexDirection: "row",
@@ -355,6 +349,7 @@ const styles = StyleSheet.create({
   },
   webView: {
     flex: 1,
+
   },
 });
 
