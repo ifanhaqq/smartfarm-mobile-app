@@ -112,8 +112,7 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
     source={require('../assets/background-screen.png')}
     style={{ flex: 1, }}
     resizeMode="cover"
-> 
-<CloudHeader></CloudHeader>
+>  
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.containerMenu}>

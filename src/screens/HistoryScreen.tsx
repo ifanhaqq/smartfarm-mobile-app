@@ -141,8 +141,7 @@ const HistoryScreen: React.FC = () => {
     }, [historyData]);
 
     return (
-        <LinearGradient colors={['#bfd7eb', '#ffffff']} style={styles.background}>
-            <CloudHeader />
+        <LinearGradient colors={['#bfd7eb', '#ffffff']} style={styles.background}> 
             <View style={styles.calendarContainer}>
                 <Calendar
                     style={styles.calendar}

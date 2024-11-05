@@ -47,8 +47,7 @@ const PredictScreen: React.FC<{ navigation: any; route: any }> = ({
   }
 
   return (
-    <ScrollView style={styles.screenBackground}>
-      <CloudHeader></CloudHeader>
+    <ScrollView style={styles.screenBackground}> 
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Text style={styles.bannerText}>

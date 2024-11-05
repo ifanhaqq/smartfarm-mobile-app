@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
+import { Image } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -37,23 +38,23 @@ function MonitoringScreens() {
           component={FieldScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Predict" component={PredictScreen} />
-        <Stack.Screen name="History" component={HistoryScreen} />
+        <Stack.Screen name="Predict" component={PredictScreen} options={{ headerShown: true,  headerTintColor: '#2255B8' ,headerStyle: { backgroundColor: '#DFEDF9' },}} />
+        <Stack.Screen name="History" component={HistoryScreen}  options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}/>
         <Stack.Screen
           name="Monthly Report"
           component={MonthlyReportScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}
         />
-        <Stack.Screen name="Predict Rain" component={PredictScreen} />
+        <Stack.Screen name="Predict Rain" component={PredictScreen} options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }} />
         <Stack.Screen
           name="Charts"
           component={MainChartScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}
         />
         <Stack.Screen
           name="Field Detail"
           component={FieldDetailScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}
         />
       </Stack.Navigator>
     </FieldContext.Provider>
@@ -64,7 +65,7 @@ function ProfileScreens() {
   return (
     <Stack.Navigator initialRouteName="Profile">
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="Edit" component={EditProfileScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Edit" component={EditProfileScreen} options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}/>
     </Stack.Navigator>
   );
 }
@@ -75,17 +76,29 @@ function LoggedTab() {
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarIcon: ({ focused }) => (
+          <Image style={{ width: 23, height: 25 }} source={
+            focused ? require('./src/assets/tab-home-icon-focused.png') : 
+            require('./src/assets/tab-home-icon.png')} />
+        ) }}
       />
       <Tab.Screen
         name="Lahan"
         component={MonitoringScreens}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarIcon: ({ focused }) => (
+          <Image style={{ width: 23, height: 25 }} source={
+            focused ? require('./src/assets/tab-field-icon-focused.png') : 
+            require('./src/assets/tab-field-icon.png')} />
+        ) }}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileScreens}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarIcon: ({ focused }) => (
+          <Image style={{ width: 23, height: 25 }} source={
+            focused ? require('./src/assets/tab-profile-icon-focused.png') : 
+            require('./src/assets/tab-profile-icon.png')} />
+        ) }}
       />
     </Tab.Navigator>
   );

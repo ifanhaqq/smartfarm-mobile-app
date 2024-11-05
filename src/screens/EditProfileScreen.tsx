@@ -69,8 +69,7 @@ const EditProfileScreen: React.FC = () => {
       source={require("../assets/background-screen.png")}
       style={styles.background}
       resizeMode="cover"
-    >
-      <CloudHeader></CloudHeader>
+    > 
       <ScrollView>
         <View
           style={{
@@ -81,7 +80,7 @@ const EditProfileScreen: React.FC = () => {
         >
           <Text style={styles.inputText}>Nama lengkap</Text>
           <TextInput
-            style={styles.inputButton}
+            style={[styles.inputButton,{color: '#616161'}]}
             placeholder="Nama Lengkap"
             onChangeText={setName}
             value={name}
@@ -89,7 +88,7 @@ const EditProfileScreen: React.FC = () => {
 
           <Text style={styles.inputText}>Email</Text>
           <TextInput
-            style={styles.inputButton}
+            style={[styles.inputButton,{color: '#616161'}]}
             placeholder="Email"
             onChangeText={setEmail}
             value={email}
@@ -97,7 +96,7 @@ const EditProfileScreen: React.FC = () => {
 
           <Text style={styles.inputText}>Password</Text>
           <TextInput
-            style={styles.inputButton}
+            style={[styles.inputButton,{color: '#616161'}]}
             placeholder="Password"
             onChangeText={setPassword}
             value={password}
@@ -105,7 +104,7 @@ const EditProfileScreen: React.FC = () => {
 
           <Text style={styles.inputText}>Masukkan kembali password</Text>
           <TextInput
-            style={styles.inputButton}
+            style={[styles.inputButton,{color: '#616161'}]}
             placeholder="Repeat password"
             onChangeText={setPasswordRepeat}
             value={password}
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
     padding: "4%",
   },
   inputText: {
-    // color: "#616161",
+    color: "#616161",
     fontWeight: "200",
     marginLeft: "6%",
     marginBottom: "3%",
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3872E3",
     borderRadius: 20,
     margin: "5%",
-    marginTop: "90%",
+    marginTop: "50%",
     padding: "4%",
   },
   saveText: {

@@ -56,8 +56,7 @@ const MonthlyReportScreen: React.FC = () => {
     }, [monthsPriorData]);
 
     return (
-        <ScrollView style={{backgroundColor: '#D7E8F4'}}>
-            <CloudHeader></CloudHeader>
+        <ScrollView style={{backgroundColor: '#D7E8F4'}}> 
             <View style={styles.container}>
 
                 <Text style={styles.title}>Laporan Bulanan Neraca Air</Text>

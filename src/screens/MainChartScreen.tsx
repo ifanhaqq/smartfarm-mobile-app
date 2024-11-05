@@ -148,8 +148,7 @@ const MainChartScreen: React.FC = () => {
 
     return (
         <>
-            <LinearGradient colors={['#bfd7eb', '#ffffff']} style={styles.background}>
-                <CloudHeader />
+            <LinearGradient colors={['#bfd7eb', '#ffffff']} style={styles.background}> 
                 <View style={styles.container}>
 
                     <View style={styles.childContainerLeft}>

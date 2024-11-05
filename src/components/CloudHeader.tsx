@@ -10,12 +10,7 @@ const CloudHeader: React.FC = () => {
         <Image source={require('../assets/icon-back.png')} style={{
            width: 25,
            height: 25,
-        }}></Image>
-        <Text style={{
-          fontSize: 19,
-          color: '#2255B8', // Adjust based on your design
-          fontWeight: '500', 
-        }}>Menu Name</Text>
+        }}></Image> 
       </TouchableOpacity>
 
       <Svg style={styles.cloudBackground} height="140%" width="100%" viewBox="0 0 1400 220">
