@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
  
   },
   containerMenu: {
-    marginTop: '20%',
+    marginTop: '10%',
     margin: '4%',
     backgroundColor: "white",
     flex: 1,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
   },
 
   img: {
-    width: 330,
+    width: '99%',
     height: 150,
     borderRadius: 20,
     justifyContent: 'center',

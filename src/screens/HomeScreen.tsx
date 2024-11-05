@@ -84,26 +84,28 @@ const HomeScreen: React.FC = () => {
                             <View style={styles.slideColoumn}>
                                 <Image source={require('../assets/home-feature-1.png')} style={styles.slideImg}></Image>
                                 <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Prediksi masa tanam</Text>
-                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                    boxes that can scroll horizontally while.</Text>
+                                <Text style={styles.paragraph}>Prediksi dari data neraca air dari bulan sebelumnya
+                                    untuk  gambaran kondisi air tanah selama 1 bulan kedepan
+                                </Text>
                             </View>
                             <View style={styles.slideColoumn}>
                                 <Image source={require('../assets/home-feature-2.png')} style={styles.slideImg}></Image>
                                 <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Smart Farming</Text>
-                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                    boxes that can scroll horizontally while.</Text>
+                                <Text style={styles.paragraph}>Bertani secara digital untuk mendapatkan informasi
+                                    lahan secara update dan berkala
+                                </Text>
                             </View>
                             <View style={styles.slideColoumn}>
                                 <Image source={require('../assets/home-feature-3.png')} style={styles.slideImg}></Image>
                                 <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Peta Lahan </Text>
-                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                    boxes that can scroll horizontally while.</Text>
+                                <Text style={styles.paragraph}>Dapatkan lokasi lahanmu agar lebih mudah dalam pemantauan lahan secara digital</Text>
                             </View>
                             <View style={styles.slideColoumn}>
                                 <Image source={require('../assets/home-feature-4.png')} style={styles.slideImg}></Image>
                                 <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Neraca air</Text>
-                                <Text style={styles.paragraph}>Each "row" represents a horizontal section of
-                                    boxes that can scroll horizontally while.</Text>
+                                <Text style={styles.paragraph}>Ketahui waktu terbaik saat menanam, waktu kapan irigasi yang tepat 
+                                    dengan neraca air
+                                </Text>
                             </View>
                             </View>
                     </ScrollView>
@@ -178,11 +180,11 @@ const styles = StyleSheet.create({
     },
     slideColoumn: {
         flexDirection: 'column',
-        width: 150,
-        height: 220,
+        width: 150, 
         backgroundColor: 'white',
         borderRadius: 20,
         marginEnd: '2%',
+
         
     },
     slideImg: {
@@ -192,10 +194,12 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20, 
 
     },
-    paragraph: {
+    paragraph: { 
+        textAlign: 'justify',
         fontSize: 10,
         fontWeight: '300',
         paddingStart: '2%',
+        padding: '5%',
         color: '#0F2652',
         overflow: 'scroll',
     },
