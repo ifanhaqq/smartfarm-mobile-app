@@ -28,6 +28,21 @@ export class AuthService {
         return user;
     }
 
+    async updateUser(id: number, name: string, email: string, password: string) {
+        const token = await this.tokenService.getToken();
+
+        await axios.post('/update-user', {
+            id,
+            name,
+            email,
+            password
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    }
+
     async logout() {
         const token = await this.tokenService.getToken();
         await axios.post('/mobile-logout', {}, {

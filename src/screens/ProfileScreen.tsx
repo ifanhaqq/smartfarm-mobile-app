@@ -5,7 +5,7 @@ import { AuthService } from 'src/services/AuthService';
 import CloudHeader from 'src/components/CloudHeader';
 import FieldContext from 'src/contexts/FieldContext';
 
-const ProfileScreen: React.FC = () => {
+const ProfileScreen: React.FC<{ navigation: any }> = ( { navigation } ) => {
 
     const { user, setUser } = useContext(UserContext);
     const { field, setField} = useContext(FieldContext);
@@ -54,8 +54,8 @@ const ProfileScreen: React.FC = () => {
                             <Text style={[styles.text, styles.align]}>{user.email}</Text>
                         </View>
 
-                        <View style={{ flexDirection: 'row', marginTop: '15%',justifyContent: 'space-between'  }}>
-                            <TouchableOpacity style={styles.EditButton}  >
+                        <View style={{ flexDirection: 'row', marginTop: '15%',  }}>
+                            <TouchableOpacity style={styles.EditButton}  onPress={() => navigation.navigate('Edit')}>
                                 <Text style={styles.editText}>Edit</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>

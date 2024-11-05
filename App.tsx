@@ -60,6 +60,15 @@ function MonitoringScreens() {
   );
 }
 
+function ProfileScreens() {
+  return (
+    <Stack.Navigator initialRouteName="Profile">
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Edit" component={EditProfileScreen} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  );
+}
+
 function LoggedTab() {
   return (
     <Tab.Navigator>
@@ -75,12 +84,7 @@ function LoggedTab() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="EditProfile"
-        component={EditProfileScreen}
+        component={ProfileScreens}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>
