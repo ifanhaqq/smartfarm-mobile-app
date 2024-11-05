@@ -25,36 +25,36 @@ const ProfileScreen: React.FC = () => {
 
     return (
         <ImageBackground
-            source={require('../assets/background-screen.png')}
+            source={require('../assets/main-bg.png')}
             style={styles.background}
             resizeMode="cover"
         >
-            <CloudHeader></CloudHeader>
+            
             <ScrollView style={styles.container}>
                 <View style={styles.containerItem}>
                     <Image source={require('../assets/vector-profile.png')} style={styles.profileImage}></Image>
                     <View style={styles.boxItem}>
                         <View style={styles.wrapItem}>
                             <Text style={styles.textNumber}>{field.length}</Text>
-                            <Text style={styles.text}>Lahan</Text>
+                            <Text style={styles.textItem}>Lahan</Text>
                         </View>
                         <View style={styles.wrapItem}>
                             <Text style={styles.textNumber}>{field.length}</Text>
-                            <Text style={styles.text}>IoT Sensor</Text>
+                            <Text style={styles.textItem}>IoT Sensor</Text>
                         </View>
                     </View>
 
                     <View style={styles.dataUser}>
-                        <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={[styles.text, styles.align]}>Nama Lengkap</Text>
                             <Text style={[styles.text, styles.align]}>{user.name}</Text>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row',justifyContent: 'space-between' }}>
                             <Text style={[styles.text, styles.align]}>Email</Text>
                             <Text style={[styles.text, styles.align]}>{user.email}</Text>
                         </View>
 
-                        <View style={{ flexDirection: 'row', marginTop: '15%',  }}>
+                        <View style={{ flexDirection: 'row', marginTop: '15%',justifyContent: 'space-between'  }}>
                             <TouchableOpacity style={styles.EditButton}  >
                                 <Text style={styles.editText}>Edit</Text>
                             </TouchableOpacity>
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        marginTop: '15%',
 
     },
     profileImage: {
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
         marginBottom: '15%',
         paddingBottom: '10%',
         borderRadius: 30,
+        
     },
     boxItem: {
         backgroundColor: 'white',
@@ -108,6 +110,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1,
         elevation: 5,
+        
     },
     wrapItem: {
         flexDirection: 'column',
@@ -115,13 +118,15 @@ const styles = StyleSheet.create({
         padding: '2%',
     },
     text: {
-        color: '#2255B8',
-        textAlign: 'center',
-
+        color: '#2255B8', 
+      justifyContent: 'space-between'
+    },
+    textItem: {
+        color: '#2255B8', 
+      textAlign:'center',
     },
     align: {
-        marginEnd: '40%',
-        marginBottom: '5%',
+        justifyContent: 'space-between',
     },
     textNumber: {
         color: '#2255B8',
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 1,
-        elevation: 5,
+        elevation: 5, 
 
     },
 

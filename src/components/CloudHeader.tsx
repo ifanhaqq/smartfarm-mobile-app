@@ -1,16 +1,24 @@
 // CloudHeader.tsx
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 const CloudHeader: React.FC = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.headerTitle}>
-        <Text style={styles.headerTitle}>Header Menu</Text>
-        </TouchableOpacity>
-      
-      <Svg style={styles.cloudBackground} height="110%" width="100%" viewBox="0 0 1400 220">
+        <Image source={require('../assets/icon-back.png')} style={{
+           width: 25,
+           height: 25,
+        }}></Image>
+        <Text style={{
+          fontSize: 19,
+          color: '#2255B8', // Adjust based on your design
+          fontWeight: '500', 
+        }}>Menu Name</Text>
+      </TouchableOpacity>
+
+      <Svg style={styles.cloudBackground} height="140%" width="100%" viewBox="0 0 1400 220">
 
         <Path
           fill="#eff7fc"
@@ -19,7 +27,7 @@ const CloudHeader: React.FC = () => {
         />
 
       </Svg>
-     
+
     </View>
   );
 };
@@ -31,23 +39,23 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%', // Adjust the width as needed
     height: '10%', // Adjust the height as needed
-    justifyContent: 'center',
-    alignItems: 'center',
+    
   },
-  cloudBackground: { 
+  cloudBackground: {
     position: 'absolute',
     top: 0,
     left: 0,
     zIndex: 1, // SVG will be at the lowest layer
-    
+
 
   },
   headerTitle: {
     position: 'relative',
-    zIndex: 2, // Ensures text appears above the SVG background
-    fontSize: 20,
-    color: '#000', // Adjust based on your design
-    fontWeight: '400', 
+    zIndex: 2, // Ensures text appears above the SVG background 
+    flexDirection: 'row',
+    margin: '4%',
+    marginTop: '8%',
+    justifyContent: 'space-between'
   },
 });
 

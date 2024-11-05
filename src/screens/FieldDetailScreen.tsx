@@ -12,7 +12,8 @@ import { WebView } from "react-native-webview";
 import { useFonts } from "expo-font";
 import * as FileSystem from "expo-file-system";
 import { FieldService } from "src/services/FieldService";
-import Loading from "src/components/Loading";
+import Loading from "src/components/Loading"; 
+import CloudHeader from "src/components/CloudHeader";
 
 const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
   navigation,
@@ -112,10 +113,11 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
     style={{ flex: 1, }}
     resizeMode="cover"
 > 
+<CloudHeader></CloudHeader>
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.containerMenu}>
-          <Text style={{ fontWeight: "500", color: "#255599" , marginStart: '5%', marginTop: '5%'}}>menu</Text>
+          <Text style={{ fontWeight: "500", fontSize: 17,color: "#255599" , marginStart: '5%', marginTop: '5%'}}>menu</Text>
           <View style={styles.menuBox}>
             <View style={styles.menuItem}>
               <View style={styles.item}>
@@ -295,14 +297,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     margin: '4%',
     marginTop: '5%',
-    padding: '3%', 
-    justifyContent: "center",
+    padding: '3%',  
   },
 
   img: {
-    width: 295,
+    width: 330,
     height: 150,
     borderRadius: 20,
+    justifyContent: 'center',
   },
   cell: {
     marginTop: 15, 
@@ -317,7 +319,7 @@ const styles = StyleSheet.create({
   col: {
     flexDirection: "row",
     borderBottomWidth: 0.2,
-    borderColor: "#545454",
+    borderColor: "#E0E0E0",
     paddingVertical: 5,
   },
   iotText: {

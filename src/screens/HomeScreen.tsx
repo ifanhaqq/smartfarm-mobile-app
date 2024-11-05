@@ -8,8 +8,7 @@ import {
     Image,
     ImageBackground
 
-} from "react-native";
-import CloudHeader from 'src/components/CloudHeader';
+} from "react-native"; 
 import Loading from "src/components/Loading";
 import FieldContext from "src/contexts/FieldContext";
 import { FieldService } from "src/services/FieldService";
@@ -61,13 +60,11 @@ const HomeScreen: React.FC = () => {
     return (
        
         <ImageBackground
-            source={require('../assets/background-screen.png')}
+            source={require('../assets/main-bg.png')}
             style={styles.background}
             resizeMode="cover"
         > 
-             <CloudHeader> 
-             </CloudHeader>
-           
+            
             <ScrollView style={styles.background}>
                 <View style={styles.container}>
                     <View style={styles.helloBar}>
@@ -83,7 +80,7 @@ const HomeScreen: React.FC = () => {
                     <ScrollView
                         horizontal={true}
                         style={[styles.slide, {padding: 10, overflow: 'visible' ,}]} >
-                    
+                    <View style={{marginEnd: '10%', flexDirection: 'row'}}>
                             <View style={styles.slideColoumn}>
                                 <Image source={require('../assets/home-feature-1.png')} style={styles.slideImg}></Image>
                                 <Text style={{ fontSize: 13, fontWeight: '400', padding: '2%', color: '#0F2652', textAlign: 'center' }}>Prediksi masa tanam</Text>
@@ -108,7 +105,7 @@ const HomeScreen: React.FC = () => {
                                 <Text style={styles.paragraph}>Each "row" represents a horizontal section of
                                     boxes that can scroll horizontally while.</Text>
                             </View>
-               
+                            </View>
                     </ScrollView>
                     <View >
                         <Image source={require('../assets/banner-home-2.png')} style={styles.homeBanner}></Image>
@@ -153,9 +150,8 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     homeBanner: {
-        marginStart: '2%',
-        marginEnd: '2%',
-        marginBottom: '2%',
+        margin: '2%',
+        flex: 1,
         width: 350,
         height: 180,
         borderRadius: 15,
@@ -178,6 +174,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginStart: '1%', 
         marginBottom: '5%',
+        marginRight: '10%',
     },
     slideColoumn: {
         flexDirection: 'column',

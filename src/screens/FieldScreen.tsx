@@ -77,11 +77,10 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <ImageBackground
-    source={require('../assets/background-screen.png')}
+    source={require('../assets/main-bg.png')}
     style={styles.background}
     resizeMode="cover"
->
-<CloudHeader></CloudHeader>
+> 
     <ScrollView style={styles.container}>
       <View style={styles.wrapper}>
         <View style={[styles.box]}>
@@ -104,7 +103,7 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                   </Text>
                   <View
                     style={{
-                      flex: 0,
+                      flex: 1,
                       flexDirection: "row",
                       marginTop: 7,
                       borderBottomWidth: 0.5,
@@ -148,7 +147,7 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                     <Text
                       style={{
                         color: "#fff",
-                        marginHorizontal: 18,
+                        marginHorizontal: '7%',
                         fontSize: 18,
                       }}
                     >
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
     marginStart: '2%',
     marginEnd: '2%',
     // marginRight: 20,
-    marginTop: '5%',
+    marginTop: '18%',
     width: '96%', 
     marginBottom: '10%',
     borderRadius: 15,
@@ -259,11 +258,8 @@ const styles = StyleSheet.create({
   detailButton: {
     marginLeft: "auto",
     backgroundColor: "#255599",
-    marginTop: 12,
-    borderBottomLeftRadius: 15,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
+    marginTop: '5%',
+   borderRadius: 15,
   },
 });
 
