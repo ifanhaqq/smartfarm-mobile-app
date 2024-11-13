@@ -17,7 +17,9 @@
     "assert": "^2.1.0",
     "axios": "^1.7.7",
     "buffer": "^6.0.3",
+    "date-fns": "^4.1.0",
     "expo": "^51.0.38",
+    "expo-file-system": "~17.0.1",
     "expo-font": "^12.0.10",
     "expo-linear-gradient": "~13.0.2",
     "expo-secure-store": "^13.0.2",
@@ -46,8 +48,7 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.3",
-    "victory-native": "^37.0.3-next.0",
-    "expo-file-system": "~17.0.1"
+    "victory-native": "^37.0.3-next.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
