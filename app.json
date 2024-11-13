@@ -4,7 +4,7 @@
     "slug": "mqtt-demo",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/icon-app.png",
     "userInterfaceStyle": "light",
     "plugins": [
       [
@@ -18,9 +18,9 @@
       ]
     ],
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/splash-neww.png",
       "resizeMode": "contain",
-      "backgroundColor": "#bfd7eb"
+      "backgroundColor": "#fff"
     },
     "ios": {
       "supportsTablet": true

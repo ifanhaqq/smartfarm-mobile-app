@@ -139,7 +139,7 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                   <TouchableOpacity
                     style={styles.detailButton}
                     onPress={() =>
-                      navigation.navigate("Field Detail", {
+                      navigation.navigate("Detail Lahan", {
                         fieldId: field.id,
                       })
                     }
