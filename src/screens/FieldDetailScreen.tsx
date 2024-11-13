@@ -158,7 +158,7 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
               </View>
               <View style={styles.item}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Monthly Report")}
+                  onPress={() => navigation.navigate("Neraca Air")}
                 >
                   <View style={styles.iconBox}>
                     <Image

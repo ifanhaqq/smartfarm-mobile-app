@@ -41,7 +41,7 @@ function MonitoringScreens() {
         <Stack.Screen name="Predict" component={PredictScreen} options={{ headerShown: true,  headerTintColor: '#2255B8' ,headerStyle: { backgroundColor: '#DFEDF9' },}} />
         <Stack.Screen name="History" component={HistoryScreen}  options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}/>
         <Stack.Screen
-          name="Monthly Report"
+          name="Neraca Air"
           component={MonthlyReportScreen}
           options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}
         />
@@ -52,7 +52,7 @@ function MonitoringScreens() {
           options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}
         />
         <Stack.Screen
-          name="Field Detail"
+          name="Detail Lahan"
           component={FieldDetailScreen}
           options={{ headerShown: true,  headerTintColor: '#2255B8',headerStyle: { backgroundColor: '#DFEDF9' }, }}
         />

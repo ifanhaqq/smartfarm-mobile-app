@@ -338,7 +338,8 @@ const styles = StyleSheet.create({
         borderTopEndRadius: 70,
         borderTopStartRadius: 70,
         paddingTop: 20,
-        paddingLeft: 0
+        paddingLeft: 0,
+        marginBottom: '35%',
     },
     titleBottomContainer: {
         color: '#357fd3',
