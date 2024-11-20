@@ -6,20 +6,20 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Modal,
+  Alert,
 } from "react-native";
 import { WebView } from "react-native-webview";
-import { useFonts } from "expo-font";
-import * as FileSystem from "expo-file-system";
 import { FieldService } from "src/services/FieldService";
-import Loading from "src/components/Loading"; 
-import CloudHeader from "src/components/CloudHeader";
+import Loading from "src/components/Loading";
 
 const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
   navigation,
   route,
 }) => {
   const fieldService: FieldService = new FieldService();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [loaded, setLoaded] = useState(false);
   const [field, setField] = useState<{
     id: number;
@@ -109,130 +109,164 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
 
   return (
     <ImageBackground
-    source={require('../assets/background-screen.png')}
-    style={{ flex: 1, }}
-    resizeMode="cover"
->  
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.containerMenu}>
-          <Text style={{ fontWeight: "500", fontSize: 17,color: "#255599" , marginStart: '5%', marginTop: '5%'}}>menu</Text>
-          <View style={styles.menuBox}>
-            <View style={styles.menuItem}>
-              <View style={styles.item}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Predict", {
-                    fieldId: field?.id,
-                  })}
-                >
-                  <View style={styles.iconBox}>
-                    <Image
-                      source={require("../assets/icon-search.png")}
-                      style={{
-                        width: 40,
-                        height: 40,
-                        marginHorizontal: "auto",
-                      }}
-                    ></Image>
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.menuName}>Prediksi masa tanam</Text>
+      source={require("../assets/background-screen.png")}
+      style={{ flex: 1 }}
+      resizeMode="cover"
+    >
+      <ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={{backgroundColor: '#fff', marginHorizontal: '10%', marginVertical: '20%'}}>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <Text>Lorem ipsum</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <View style={styles.container}>
+          <View style={styles.containerMenu}>
+            <View style={styles.menuBox}>
+              <View style={styles.menuItem}>
+                <View style={styles.item}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Predict", {
+                        fieldId: field?.id,
+                      })
+                    }
+                  >
+                    <View style={styles.iconBox}>
+                      <Image
+                        source={require("../assets/icon-search.png")}
+                        style={{
+                          width: 40,
+                          height: 40,
+                          marginHorizontal: "auto",
+                        }}
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={styles.menuName}>Prediksi masa tanam</Text>
+                </View>
+                <View style={styles.item}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("History")}
+                  >
+                    <View style={styles.iconBox}>
+                      <Image
+                        source={require("../assets/icon-cloud.png")}
+                        style={{
+                          width: 55,
+                          height: 30,
+                          marginHorizontal: "auto",
+                          marginVertical: "auto",
+                        }}
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={styles.menuName}>Laporan curah hujan</Text>
+                </View>
+                <View style={styles.item}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Neraca Air")}
+                  >
+                    <View style={styles.iconBox}>
+                      <Image
+                        source={require("../assets/icon-water.png")}
+                        style={{
+                          width: 39,
+                          height: 50,
+                          marginHorizontal: "auto",
+                        }}
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={styles.menuName}>Neraca air</Text>
+                </View>
+                <View style={styles.item}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Charts")}
+                  >
+                    <View style={styles.iconBox}>
+                      <Image
+                        source={require("../assets/icon-monitor.png")}
+                        style={{
+                          width: 35,
+                          height: 45,
+                          marginHorizontal: "auto",
+                        }}
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={styles.menuName}>Monitor lahan</Text>
+                </View>
               </View>
-              <View style={styles.item}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("History")}
-                >
-                  <View style={styles.iconBox}>
-                    <Image
-                      source={require("../assets/icon-cloud.png")}
-                      style={{
-                        width: 55,
-                        height: 30,
-                        marginHorizontal: "auto",
-                        marginVertical: "auto",
-                      }}
-                    ></Image>
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.menuName}>Laporan curah hujan</Text>
-              </View>
-              <View style={styles.item}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Neraca Air")}
-                >
-                  <View style={styles.iconBox}>
-                    <Image
-                      source={require("../assets/icon-water.png")}
-                      style={{
-                        width: 39,
-                        height: 50,
-                        marginHorizontal: "auto",
-                      }}
-                    ></Image>
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.menuName}>Neraca air</Text>
-              </View>
-              <View style={styles.item}>
-                <TouchableOpacity onPress={() => navigation.navigate("Charts")}>
-                  <View style={styles.iconBox}>
-                    <Image
-                      source={require("../assets/icon-monitor.png")}
-                      style={{
-                        width: 35,
-                        height: 45,
-                        marginHorizontal: "auto",
-                      }}
-                    ></Image>
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.menuName}>Monitor lahan</Text>
+              <View style={styles.menuItem}>
+                <View style={styles.item}>
+                  <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <View style={styles.iconBox}>
+                      <Image
+                        source={require("../assets/icon-edit.png")}
+                        style={{
+                          width: 40,
+                          height: 40,
+                          marginHorizontal: "auto",
+                        }}
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={styles.menuName}>Edit informasi lahan</Text>
+                </View>
               </View>
             </View>
           </View>
-         
+          <View style={styles.row2}>
+            {!field?.image ? (
+              <Image
+                source={require("../assets/alternative-image.png")}
+                style={styles.img}
+              ></Image>
+            ) : (
+              <Image
+                source={{
+                  uri: `https://planting-prediction.petanitech.com/storage/img/fields/${field.image}`,
+                }}
+                style={styles.img}
+              ></Image>
+            )}
+            <View style={styles.col}>
+              <Text style={styles.cell}> Nama Lahan</Text>
+              <Text style={styles.cell2}>{field?.name}</Text>
+            </View>
+
+            <View style={styles.col}>
+              <Text style={styles.cell}> Masa Tanam</Text>
+              <Text style={styles.cell2}>175 Hari</Text>
+            </View>
+
+            <View style={styles.col}>
+              <Text style={styles.cell}> Device Iot</Text>
+              <Text style={styles.iotText}>{field?.deviceName}</Text>
+            </View>
+
+            {/* WebView Container */}
+            <View style={styles.webViewContainer}>
+              <Text style={styles.locationText}>Lokasi Lahan</Text>
+              <WebView
+                originWhitelist={["*"]}
+                source={{ html }}
+                style={styles.webView}
+              />
+            </View>
+          </View>
         </View>
-        <View style={styles.row2}> 
-          {!field?.image ? (
-            <Image
-              source={require("../assets/alternative-image.png")}
-              style={styles.img}
-            ></Image>
-          ) : (
-            <Image
-              source={{
-                uri: `https://planting-prediction.petanitech.com/storage/img/fields/${field.image}`,
-              }}
-              style={styles.img}
-            ></Image>
-          )}
-          <View style={styles.col}>
-            <Text style={styles.cell}> Nama Lahan</Text>
-            <Text style={styles.cell2}>{field?.name}</Text>
-          </View>
-
-          <View style={styles.col}>
-            <Text style={styles.cell}> Masa Tanam</Text>
-            <Text style={styles.cell2}>175 Hari</Text>
-          </View>
-
-          <View style={styles.col}>
-            <Text style={styles.cell}> Device Iot</Text>
-            <Text style={styles.iotText}>{field?.deviceName}</Text>
-          </View>
-
-          {/* WebView Container */}
-          <View style={styles.webViewContainer}>
-            <Text style={styles.locationText}>Lokasi Lahan</Text>
-            <WebView
-              originWhitelist={["*"]}
-              source={{ html }}
-              style={styles.webView}
-            />
-          </View>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -240,15 +274,14 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
- 
   },
   containerMenu: {
-    marginTop: '10%',
-    margin: '4%',
+    marginTop: "10%",
+    margin: "4%",
     backgroundColor: "white",
     flex: 1,
     borderRadius: 15,
-    padding: '2%'
+    padding: "2%",
   },
   menuBox: {},
   menuItem: {
@@ -265,9 +298,9 @@ const styles = StyleSheet.create({
     // padding: "4%",
     flex: 0,
     // borderWidth: 1,
-    width: '25%', 
-    marginBottom: '2%',
-    marginRight: '3%',
+    width: "25%",
+    marginBottom: "2%",
+    marginRight: "3%",
   },
   icon: {
     width: "auto",
@@ -275,8 +308,8 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     backgroundColor: "#F4F6FA",
-    height: '84%',
-    width: '95%',
+    height: "84%",
+    width: "95%",
     marginHorizontal: "auto",
     padding: "10%",
     borderRadius: 20,
@@ -294,26 +327,26 @@ const styles = StyleSheet.create({
   row2: {
     backgroundColor: "white",
     borderRadius: 15,
-    margin: '4%',
-    marginTop: '5%',
-    padding: '3%',  
+    margin: "4%",
+    marginTop: "5%",
+    padding: "3%",
   },
 
   img: {
-    width: '99%',
+    width: "99%",
     height: 150,
     borderRadius: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   cell: {
-    marginTop: 15, 
-    color: '#545454',
+    marginTop: 15,
+    color: "#545454",
   },
   cell2: {
     marginTop: 15,
     marginLeft: "auto",
-    color: "#2255B8", 
-    fontWeight: '500',
+    color: "#2255B8",
+    fontWeight: "500",
   },
   col: {
     flexDirection: "row",
@@ -350,7 +383,6 @@ const styles = StyleSheet.create({
   },
   webView: {
     flex: 1,
-
   },
 });
 

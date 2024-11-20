@@ -4,7 +4,6 @@ import Chart from 'src/components/Chart';
 import { LinearGradient } from 'expo-linear-gradient';
 import '../../shim';
 import SmallWidgetIcon from 'src/components/SmallWidgetIcon';
-import CloudHeader from 'src/components/CloudHeader';
 import { MQTTService } from 'src/services/MQTTService';
 import { Float } from 'react-native/Libraries/Types/CodegenTypes';
 import UserContext from 'src/contexts/AuthContext';
@@ -154,23 +153,23 @@ const MainChartScreen: React.FC = () => {
                     <View style={styles.childContainerLeft}>
                         <View style={styles.childChildContainer}>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Humidity Chart", 
+                                                        setParamsData({ title: "Sensor Kelembaban", 
                                                                         params: "w1_hum" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 100})
                                                         }}>
-                                                            <SmallWidgetIcon name="sunny" 
+                                                            <SmallWidgetIcon icon="icon-humidity" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_hum} 
                                                                              title="HUM" />
                             </Pressable>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Noise Chart", 
+                                                        setParamsData({ title: "Sensor Kebisingan", 
                                                                         params: "w1_noise" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 30, y_max: 100})
                                                         }}>
-                                                            <SmallWidgetIcon name="hearing" 
+                                                            <SmallWidgetIcon icon="icon-noise" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_noise} 
                                                                              title="Noise" />
@@ -178,23 +177,23 @@ const MainChartScreen: React.FC = () => {
                         </View>
                         <View style={styles.childChildContainer}>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "PM 2.5", 
+                                                        setParamsData({ title: "Partikel Udara < 25 μm", 
                                                                         params: "w1_pm25" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 10})
                                                         }}>
-                                                            <SmallWidgetIcon name="cloud" 
+                                                            <SmallWidgetIcon icon="icon-pm25" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_pm25} 
                                                                              title="PM2.5" />
                             </Pressable>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "PM 1.0", 
+                                                        setParamsData({ title: "Partikel Udara < 10 μm", 
                                                                         params: "w1_pm10" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 10});
                                                         }}>
-                                                            <SmallWidgetIcon name="thermostat" 
+                                                            <SmallWidgetIcon icon="icon-pm10" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_pm10} 
                                                                              title="PM1.0" />
@@ -202,23 +201,23 @@ const MainChartScreen: React.FC = () => {
                         </View>
                         <View style={styles.childChildContainer}>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Pressure Chart", 
+                                                        setParamsData({ title: "Tekanan Udara", 
                                                                         params: "w1_press" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 30, y_max: 110});
                                                         }}>
-                                                            <SmallWidgetIcon name="cloud" 
+                                                            <SmallWidgetIcon icon="icon-pressure" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_press} 
                                                                              title="Pressure" />
                             </Pressable>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Luminosity H", 
+                                                        setParamsData({ title: "Lama penyinaran", 
                                                                         params: "w1_luxh" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 100});
                                                         }}>
-                                                            <SmallWidgetIcon name="thermostat" 
+                                                            <SmallWidgetIcon icon="icon-luxh" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_luxh} 
                                                                              title="LUXH" />
@@ -227,7 +226,7 @@ const MainChartScreen: React.FC = () => {
                     </View>
                     <View style={styles.middleWidget}>
                     <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Temperature chart", 
+                                                        setParamsData({ title: "Sensor suhu", 
                                                                         params: "w1_temp" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 10, y_max: 50});
@@ -238,21 +237,21 @@ const MainChartScreen: React.FC = () => {
                     <View style={styles.childContainerRight}>
                     <View style={styles.childChildContainer}>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Luminosity L", 
+                                                        setParamsData({ title: "Luminositas", 
                                                                         params: "w1_luxl" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 1000});
                                                         }}>
-                                                            <SmallWidgetIcon name="cloud" 
+                                                            <SmallWidgetIcon icon="icon-luxl" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w1_luxl} 
                                                                              title="LUXL" />
                             </Pressable>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Wind Direction", 
+                                                        setParamsData({ title: "Arah angin", 
                                                                         params: "w2_wd" }); 
                                                         setIsConnected(false) }}>
-                                                            <SmallWidgetIcon name="wind-power" 
+                                                            <SmallWidgetIcon icon="icon-wd" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w2_wd} 
                                                                              title="WD" />
@@ -260,23 +259,23 @@ const MainChartScreen: React.FC = () => {
                         </View>
                         <View style={styles.childChildContainer}>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Average Windspeed", 
+                                                        setParamsData({ title: "Rata rata kecepatan angin", 
                                                                         params: "w2_ws_avg" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 10});
                                                         }}>
-                                                            <SmallWidgetIcon name="wind-power" 
+                                                            <SmallWidgetIcon icon="icon-avgws" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w2_ws_avg} 
                                                                              title="AVG WS" />
                             </Pressable>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Rain per Day", 
+                                                        setParamsData({ title: "Curah hujan per hari", 
                                                                         params: "w2_rain_d" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 10});
                                                         }}>
-                                                            <SmallWidgetIcon name="cloud" 
+                                                            <SmallWidgetIcon icon="icon-raind" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w2_rain_d} 
                                                                              title="Rain/D" />
@@ -284,23 +283,23 @@ const MainChartScreen: React.FC = () => {
                         </View>
                         <View style={styles.childChildContainer}>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Rain per Hour", 
+                                                        setParamsData({ title: "Curah hujan per jam", 
                                                                         params: "w2_rain_h" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 10});
                                                         }}>
-                                                            <SmallWidgetIcon name="cloud" 
+                                                            <SmallWidgetIcon icon="icon-raind" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w2_rain_h} 
                                                                              title="Rain/H" />
                             </Pressable>
                             <Pressable onPress={() => { setChartData([]); 
-                                                        setParamsData({ title: "Maximum Windspeed", 
+                                                        setParamsData({ title: "Kecepatan angin maksimal", 
                                                                         params: "w2_ws_max" }); 
                                                         setIsConnected(false);
                                                         setDomain({y_min: 0, y_max: 10});
                                                         }}>
-                                                            <SmallWidgetIcon name="wind-power" 
+                                                            <SmallWidgetIcon icon="icon-avgws" 
                                                                              color="#bfd7eb" 
                                                                              value={staticData.w2_ws_max} 
                                                                              title="MAX WS" />
@@ -324,16 +323,16 @@ const MainChartScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0,
         justifyContent: 'center',
         alignItems: 'flex-start',
         flexDirection: 'row',
         color: '#ffffff',
-        paddingTop: 25
+        paddingTop: 25,
     },
     bottomContainer: {
         backgroundColor: '#ffffff',
-        flex: 2.5,
+        flex: 1,
         marginHorizontal: 15,
         borderTopEndRadius: 70,
         borderTopStartRadius: 70,

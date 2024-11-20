@@ -13,9 +13,12 @@
       [
         "expo-font",
         {
-          "Montserrat-Bold": ["./src/assets/fonts/Montserrat-Bold.ttf"]
+          "Montserrat-Bold": [
+            "./src/assets/fonts/Montserrat-Bold.ttf"
+          ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "splash": {
       "image": "./src/assets/splash-neww.png",

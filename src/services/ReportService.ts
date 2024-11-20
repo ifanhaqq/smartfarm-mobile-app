@@ -1,29 +1,17 @@
-import { AxiosError, AxiosResponse } from "axios";
-import axios from "../utils/axios";
-
+import { TokenService } from "./TokenService";
+import axios from "src/utils/axios";
 export class ReportService {
+    private tokenService: TokenService = new TokenService();
 
-    private serviceUrl = "http://192.168.20.99:3000";
+    async getMonthlyWaterStats() {
+        const token = await this.tokenService.getToken();
 
-    async checkConnection() {
-        try {
-            const response: AxiosResponse<string> = await axios(this.serviceUrl).get("/");
-            console.log("Connected successfully", response.data, response.status);
-        } catch (error: unknown) {
-            console.error(error);
-        }
-    }
+        const {data: stats} = await axios.get('/get-monthly-water-stats', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
 
-    async getReport(monthsPrior: number) {
-        try {
-            const response: AxiosResponse<any> = await axios(this.serviceUrl).post<any>("/neraca", {
-                month: monthsPrior
-            });
-
-            return response.data;
-        } catch (error) {
-            throw error;
-          }
-        // return data;
+        return stats;
     }
 }
