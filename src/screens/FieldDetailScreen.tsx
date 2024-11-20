@@ -9,11 +9,12 @@ import {
   ImageBackground,
   Modal,
   Alert,
+
 } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 import { WebView } from "react-native-webview";
 import { FieldService } from "src/services/FieldService";
 import Loading from "src/components/Loading";
-
 const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
   navigation,
   route,
@@ -123,9 +124,37 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={{backgroundColor: '#fff', marginHorizontal: '10%', marginVertical: '20%'}}>
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-              <Text>Lorem ipsum</Text>
+          <View style={{
+            backgroundColor: '#fff',
+            marginHorizontal: '10%',
+            marginTop: '20%', padding: '5%',
+            borderRadius: 20,
+            shadowColor: "#000",
+            shadowOffset: { width: 20, height: 20 },
+            shadowOpacity: 0.2,
+            shadowRadius: 1,
+            elevation: 200,
+          }}>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderColor: '%b3b3b3' }} >
+              <Text style={{ fontWeight: 'bold', fontSize: 17, marginBottom: '5%', }} >Edit Lahan</Text>
+              <Image source={require('../assets/icon-close.png')} style={{ width: 30, height: 30 }}></Image>
+            </TouchableOpacity>
+            <Text style={{ marginBottom: '3%', marginTop: '5%' }}>Nama Lahan</Text>
+            <TouchableOpacity>
+              <Text style={{ borderWidth: 0.2, color: '#5e5e5e', padding: '4%', borderRadius: 10 }}>portal Gank</Text>
+            </TouchableOpacity>
+            <Text>Status</Text>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <TouchableOpacity style={{ backgroundColor: '#29a34e', padding: '2%', borderRadius: 10, }}>
+                <Text style={{ color: 'white' }}>Panen</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ backgroundColor: '#d27474', padding: '2%', borderRadius: 10, }}>
+                <Text style={{ color: 'white' }}>Belum Panen</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={{ backgroundColor: '#74a2d2', padding: '2%', borderRadius: 10, marginTop: '25%' }}>
+              <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Simpan Edit</Text>
             </TouchableOpacity>
           </View>
         </Modal>
