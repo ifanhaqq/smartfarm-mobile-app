@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   Image,
@@ -9,12 +8,14 @@ import {
   ImageBackground,
   Modal,
   Alert,
-
+  TextInput,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
 import { WebView } from "react-native-webview";
 import { FieldService } from "src/services/FieldService";
 import Loading from "src/components/Loading";
+import { RadioButton, Text } from "react-native-paper";
+import FieldContext from "src/contexts/FieldContext";
+
 const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
   navigation,
   route,
@@ -22,7 +23,7 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
   const fieldService: FieldService = new FieldService();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [loaded, setLoaded] = useState(false);
-  const [field, setField] = useState<{
+  const [field, setFieldState] = useState<{
     id: number;
     image: string;
     name: string;
@@ -37,6 +38,11 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
     deviceId: string;
     deviceName: string;
   }>();
+  const [editName, setEditName] = useState("");
+  const fieldContext = useContext(FieldContext);
+  // const { setField } = fieldContext;
+  
+  const [editStatus, setEditStatus] = useState("Panen");
 
   console.log("field id:", route.params.fieldId);
 
@@ -58,7 +64,9 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
         deviceName: string;
       } = await fieldService.getField(route.params.fieldId);
 
-      setField(field);
+      setFieldState(field);
+      setEditName(field.name);
+      setEditStatus(field.harveststate);
 
       console.log(field);
     } catch (error) {
@@ -74,7 +82,7 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
     }
 
     runEffect();
-  }, []);
+  }, [loaded]);
 
   if (!loaded) {
     return <Loading />;
@@ -108,6 +116,18 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
         </html>
     `;
 
+  const updateField = async () => {
+    const response = await fieldService.updateField(field!.id, editStatus, editName);
+
+    Alert.alert("Sukses", "Data lahan anda berhasil diperbarui!");
+    setModalVisible(false);
+    setLoaded(false);
+
+    navigation.navigate("Detail Lahan", {
+      fieldId: field!.id,
+    })
+
+  };
   return (
     <ImageBackground
       source={require("../assets/background-screen.png")}
@@ -124,37 +144,88 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={{
-            backgroundColor: '#fff',
-            marginHorizontal: '10%',
-            marginTop: '20%', padding: '5%',
-            borderRadius: 20,
-            shadowColor: "#000",
-            shadowOffset: { width: 20, height: 20 },
-            shadowOpacity: 0.2,
-            shadowRadius: 1,
-            elevation: 200,
-          }}>
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={{ flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderColor: '%b3b3b3' }} >
-              <Text style={{ fontWeight: 'bold', fontSize: 17, marginBottom: '5%', }} >Edit Lahan</Text>
-              <Image source={require('../assets/icon-close.png')} style={{ width: 30, height: 30 }}></Image>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              marginHorizontal: "10%",
+              marginTop: "20%",
+              padding: "5%",
+              borderRadius: 20,
+              shadowColor: "#000",
+              shadowOffset: { width: 20, height: 20 },
+              shadowOpacity: 0.2,
+              shadowRadius: 1,
+              elevation: 200,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderBottomWidth: 0.2,
+                borderColor: "%b3b3b3",
+              }}
+            >
+              <Text
+                style={{ fontWeight: "bold", fontSize: 17, marginBottom: "5%" }}
+              >
+                Edit Lahan
+              </Text>
+              <Image
+                source={require("../assets/icon-close.png")}
+                style={{ width: 30, height: 30 }}
+              ></Image>
             </TouchableOpacity>
-            <Text style={{ marginBottom: '3%', marginTop: '5%' }}>Nama Lahan</Text>
+            <Text style={{ marginBottom: "3%", marginTop: "5%" }}>
+              Nama Lahan
+            </Text>
             <TouchableOpacity>
-              <Text style={{ borderWidth: 0.2, color: '#5e5e5e', padding: '4%', borderRadius: 10 }}>portal Gank</Text>
+              <TextInput
+                style={{
+                  borderWidth: 0.2,
+                  color: "#5e5e5e",
+                  padding: "4%",
+                  borderRadius: 10,
+                }}
+                value={editName}
+                onChangeText={setEditName}
+              />
             </TouchableOpacity>
-            <Text>Status</Text>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <TouchableOpacity style={{ backgroundColor: '#29a34e', padding: '2%', borderRadius: 10, }}>
-                <Text style={{ color: 'white' }}>Panen</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ backgroundColor: '#d27474', padding: '2%', borderRadius: 10, }}>
-                <Text style={{ color: 'white' }}>Belum Panen</Text>
-              </TouchableOpacity>
+            <Text style={{ marginTop: 19 }}>Status</Text>
+            <View>
+              <RadioButton.Group
+                onValueChange={(value) => setEditStatus(value)}
+                value={editStatus}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <RadioButton value="Panen" />
+                  <Text style={{ alignSelf: "center" }}>Panen</Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <RadioButton value="Belum panen" />
+                  <Text style={{ alignSelf: "center" }}>Belum panen</Text>
+                </View>
+              </RadioButton.Group>
             </View>
-            <TouchableOpacity style={{ backgroundColor: '#74a2d2', padding: '2%', borderRadius: 10, marginTop: '25%' }}>
-              <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Simpan Edit</Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#74a2d2",
+                padding: "2%",
+                borderRadius: 10,
+                marginTop: "25%",
+              }}
+              onPress={updateField}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                Simpan Edit
+              </Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -282,6 +353,11 @@ const FieldDetailScreen: React.FC<{ navigation: any; route: any }> = ({
             <View style={styles.col}>
               <Text style={styles.cell}> Device Iot</Text>
               <Text style={styles.iotText}>{field?.deviceName}</Text>
+            </View>
+
+            <View style={styles.col}>
+              <Text style={styles.cell}> Status panen</Text>
+              <Text style={styles.iotText}>{field?.harveststate}</Text>
             </View>
 
             {/* WebView Container */}

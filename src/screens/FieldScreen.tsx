@@ -9,11 +9,8 @@ import {
   ImageBackground,
 } from "react-native";
 import { FieldService } from "src/services/FieldService";
-import * as FileSystem from "expo-file-system";
 import FieldContext from "src/contexts/FieldContext";
 import Loading from "src/components/Loading";
-
-import CloudHeader from 'src/components/CloudHeader';
 
 const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const fieldService: FieldService = new FieldService();
@@ -53,13 +50,14 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         userId: number;
         deviceId: string;
       }[] = await fieldService.getAllFields();
-      console.log(JSON.stringify(fields, null, 2));
 
       setFields(fields);
     } catch (error) {
       console.log("error fetching fields:", error);
     }
   }
+
+  // setLoaded(false);
 
   useEffect(() => {
     async function runEffect() {
@@ -69,7 +67,7 @@ const FieldScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
 
     runEffect();
-  }, []);
+  }, [loaded]);
 
   if (!loaded) {
     return <Loading />;

@@ -28,4 +28,19 @@ export class FieldService {
 
         return field;
     }
+
+    async updateField(fieldId: number, status: string, name: string) {
+        const token = await this.tokenService.getToken();
+        const { data: response } = await axios.post('/update-field', {
+            field_id: fieldId,
+            status,
+            name
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response;
+    }
 }
